@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - Pastoral La Salle</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Header y Navegación -->
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <h1>Pastoral La Salle</h1>
+                </div>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="testimonios.html">Testimonios</a></li>
+                    <li><a href="actividades.html">Actividades</a></li>
+                    <li><a href="login.html" class="btn-login">Iniciar Sesión</a></li>
+                </ul>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Registro Section -->
+    <section class="auth-section">
+        <div class="auth-container">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <h2>Crear Cuenta</h2>
+                    <p>Únete a nuestra comunidad pastoral</p>
+                </div>
+                
+                <form id="registerForm" class="auth-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
+                            <span class="error-message" id="nombreError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="apellido">Apellido</label>
+                            <input type="text" id="apellido" name="apellido" required placeholder="Tu apellido">
+                            <span class="error-message" id="apellidoError"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="emailReg">Correo Electrónico</label>
+                        <input type="email" id="emailReg" name="email" required placeholder="tu@email.com">
+                        <span class="error-message" id="emailRegError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="carrera">Carrera</label>
+                        <select id="carrera" name="carrera" required>
+                            <option value="">Selecciona tu carrera</option>
+                            <option value="ingenieria">Ingeniería</option>
+                            <option value="administracion">Administración</option>
+                            <option value="derecho">Derecho</option>
+                            <option value="psicologia">Psicología</option>
+                            <option value="medicina">Medicina</option>
+                            <option value="arquitectura">Arquitectura</option>
+                            <option value="comunicacion">Comunicación</option>
+                            <option value="educacion">Educación</option>
+                            <option value="otra">Otra</option>
+                        </select>
+                        <span class="error-message" id="carreraError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="semestre">Semestre</label>
+                        <select id="semestre" name="semestre" required>
+                            <option value="">Selecciona tu semestre</option>
+                            <option value="1">1er Semestre</option>
+                            <option value="2">2do Semestre</option>
+                            <option value="3">3er Semestre</option>
+                            <option value="4">4to Semestre</option>
+                            <option value="5">5to Semestre</option>
+                            <option value="6">6to Semestre</option>
+                            <option value="7">7mo Semestre</option>
+                            <option value="8">8vo Semestre</option>
+                            <option value="9">9no Semestre</option>
+                            <option value="10">10mo Semestre</option>
+                        </select>
+                        <span class="error-message" id="semestreError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telefono">Teléfono</label>
+                        <input type="tel" id="telefono" name="telefono" required placeholder="+123 456 7890">
+                        <span class="error-message" id="telefonoError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="passwordReg">Contraseña</label>
+                        <input type="password" id="passwordReg" name="password" required placeholder="••••••••">
+                        <small>Mínimo 8 caracteres</small>
+                        <span class="error-message" id="passwordRegError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="passwordConfirm">Confirmar Contraseña</label>
+                        <input type="password" id="passwordConfirm" name="passwordConfirm" required placeholder="••••••••">
+                        <span class="error-message" id="passwordConfirmError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="terms" required>
+                            <span>Acepto los <a href="#" class="link">términos y condiciones</a></span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-full">Crear Cuenta</button>
+
+                    <div class="auth-divider">
+                        <span>o</span>
+                    </div>
+
+                    <div class="auth-alternative">
+                        <p>¿Ya tienes una cuenta? <a href="login.html">Inicia sesión aquí</a></p>
+                    </div>
+                </form>
+
+                <div class="success-message" id="successMessageReg" style="display: none;">
+                    <span class="success-icon">✓</span>
+                    <p>¡Registro exitoso! Redirigiendo...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Pastoral La Salle</h3>
+                    <p>Acompañando a la comunidad universitaria en su camino de fe y servicio.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contacto</h3>
+                    <p>📧 pastoral@lasalle.edu</p>
+                    <p>📱 +123 456 7890</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Horarios</h3>
+                    <p>Lunes a Viernes: 9:00 AM - 6:00 PM</p>
+                    <p>Sábados: 9:00 AM - 2:00 PM</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Pastoral Universitaria La Salle. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>
