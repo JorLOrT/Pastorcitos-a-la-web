@@ -3,12 +3,12 @@ import styles from '../styles/Testimonios.module.css'
 
 const Testimonios = () => {
   const galleryItems = [
-    { icon: '📸', title: 'Misa Universitaria' },
-    { icon: '🤝', title: 'Servicio Social' },
-    { icon: '🙏', title: 'Retiro Espiritual' },
-    { icon: '🎉', title: 'Celebración Pascual' },
-    { icon: '👥', title: 'Encuentro Juvenil' },
-    { icon: '❤️', title: 'Visita a Asilos' }
+    { image: '/images/misa.jpg', title: 'Misa Universitaria' },
+    { image: '/images/colecta.jpg', title: 'Servicio Social' },
+    { image: '/images/retiro.jpg', title: 'Retiro Espiritual' },
+    { image: '/images/navidad.jpg', title: 'Celebración Navideña' },
+    { image: '/images/encuentro_juvenil.jpg', title: 'Encuentro Juvenil' },
+    { image: '/images/encuentro.jpg', title: 'Encuentro Pastoral' }
   ]
 
   const testimonios = [
@@ -67,8 +67,8 @@ const Testimonios = () => {
           <div className={styles.galleryGrid}>
             {galleryItems.map((item, index) => (
               <div key={index} className={styles.galleryItem}>
-                <div className={styles.galleryPlaceholder}>
-                  <span className={styles.galleryIcon}>{item.icon}</span>
+                <img src={item.image} alt={item.title} />
+                <div className={styles.galleryOverlay}>
                   <p>{item.title}</p>
                 </div>
               </div>

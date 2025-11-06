@@ -21,9 +21,8 @@ export const AuthProvider = ({ children }) => {
     apellido: 'Pastoral',
     email: 'admin@pastoral.com',
     password: 'Admin2024!',
-    carrera: 'Administración',
+    carrera: 'Administración y Negocios Internacionales',
     semestre: '10',
-    telefono: '999999999',
     isAdmin: true,
     fechaRegistro: '2024-01-01'
   }
@@ -54,9 +53,8 @@ export const AuthProvider = ({ children }) => {
         nombre: 'Administrador',
         apellido: 'Pastoral',
         email: 'admin@pastoral.com',
-        carrera: 'Administración',
+        carrera: 'Administración y Negocios Internacionales',
         semestre: '10',
-        telefono: '999999999',
         isAdmin: true,
         fechaRegistro: '2024-01-01'
       }

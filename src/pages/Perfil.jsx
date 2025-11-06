@@ -23,6 +23,7 @@ const Perfil = () => {
   const { currentUser, logout } = useAuth()
   const navigate = useNavigate()
   const [view, setView] = useState('calendario')
+  const [selectedEvent, setSelectedEvent] = useState(null)
 
   // Redirigir si no hay usuario logueado
   if (!currentUser) {
@@ -34,14 +35,108 @@ const Perfil = () => {
   const inscripciones = JSON.parse(localStorage.getItem('inscripciones')) || []
   const misInscripciones = inscripciones.filter(i => i.userId === currentUser.id)
 
-  // Todas las actividades disponibles
+  // Todas las actividades disponibles con descripciones completas
   const todasLasActividades = [
-    { id: 1, title: 'Misa Universitaria', date: new Date(2025, 9, 15, 12, 0), category: 'espiritual', location: 'Capilla Principal' },
-    { id: 2, title: 'Jornada de Servicio en Comunidades', date: new Date(2025, 9, 20, 9, 0), category: 'servicio', location: 'Punto de encuentro' },
-    { id: 3, title: 'Retiro Espiritual', date: new Date(2025, 9, 25, 8, 0), category: 'espiritual', location: 'Casa de Retiros' },
-    { id: 4, title: 'Taller: Liderazgo Cristiano', date: new Date(2025, 9, 28, 16, 0), category: 'formacion', location: 'Sala de Conferencias' },
-    { id: 5, title: 'Tarde de Convivencia', date: new Date(2025, 10, 2, 15, 0), category: 'recreativa', location: 'Áreas Verdes' },
-    { id: 6, title: 'Visita a Asilos y Hospitales', date: new Date(2025, 10, 8, 10, 0), category: 'servicio', location: 'Transporte desde Universidad' },
+    { 
+      id: 1, 
+      title: 'Misa Universitaria', 
+      date: new Date(2025, 10, 6, 12, 0), 
+      category: 'espiritual', 
+      location: 'Capilla Principal',
+      description: 'Celebración eucarística especial para toda la comunidad universitaria. Un momento de encuentro con Dios y de fraternidad entre estudiantes.',
+      time: '12:00 PM - 1:00 PM',
+      capacity: 'Abierto a todos'
+    },
+    { 
+      id: 2, 
+      title: 'Jornada de Servicio en Comunidades', 
+      date: new Date(2025, 10, 9, 9, 0), 
+      category: 'servicio', 
+      location: 'Punto de encuentro',
+      description: 'Visitaremos comunidades necesitadas para llevar ayuda material y espiritual. Actividades de construcción, enseñanza y acompañamiento.',
+      time: '9:00 AM - 4:00 PM',
+      capacity: 'Cupo limitado: 30 personas'
+    },
+    { 
+      id: 3, 
+      title: 'Retiro Espiritual', 
+      date: new Date(2025, 10, 13, 8, 0), 
+      category: 'espiritual', 
+      location: 'Casa de Retiros',
+      description: 'Un día completo de reflexión, oración y encuentro personal con Dios. Incluye momentos de silencio, charlas formativas y celebración eucarística.',
+      time: '8:00 AM - 6:00 PM',
+      capacity: 'Cupo limitado: 40 personas'
+    },
+    { 
+      id: 4, 
+      title: 'Taller: Liderazgo Cristiano', 
+      date: new Date(2025, 10, 16, 16, 0), 
+      category: 'formacion', 
+      location: 'Sala de Conferencias',
+      description: 'Taller interactivo sobre los principios del liderazgo desde una perspectiva cristiana. Aprende a liderar con valores y servicio.',
+      time: '4:00 PM - 6:00 PM',
+      capacity: 'Abierto a todos'
+    },
+    { 
+      id: 5, 
+      title: 'Tarde de Convivencia', 
+      date: new Date(2025, 10, 20, 15, 0), 
+      category: 'recreativa', 
+      location: 'Áreas Verdes',
+      description: 'Tarde de juegos, música y convivencia fraterna. Un espacio para conocernos mejor y fortalecer los lazos de amistad en nuestra comunidad.',
+      time: '3:00 PM - 7:00 PM',
+      capacity: 'Abierto a todos'
+    },
+    { 
+      id: 6, 
+      title: 'Visita a Asilos y Hospitales', 
+      date: new Date(2025, 10, 25, 10, 0), 
+      category: 'servicio', 
+      location: 'Transporte desde Universidad',
+      description: 'Acompañamiento a personas mayores en asilos y visita a niños en hospitales. Llevaremos alegría, compañía y amor a quienes más lo necesitan.',
+      time: '10:00 AM - 2:00 PM',
+      capacity: 'Cupo limitado: 25 personas'
+    },
+    { 
+      id: 7, 
+      title: 'Charla: Fe y Ciencia', 
+      date: new Date(2025, 10, 28, 17, 0), 
+      category: 'formacion', 
+      location: 'Auditorio Principal',
+      description: 'Diálogo sobre la relación entre fe y ciencia en el mundo contemporáneo. Con invitados especiales del ámbito académico.',
+      time: '5:00 PM - 7:00 PM',
+      capacity: 'Abierto a todos'
+    },
+    { 
+      id: 8, 
+      title: 'Adviento: Preparación Navideña', 
+      date: new Date(2025, 11, 2, 18, 0), 
+      category: 'espiritual', 
+      location: 'Capilla Principal',
+      description: 'Inicio del tiempo de Adviento con oración especial y reflexión sobre el significado de la Navidad.',
+      time: '6:00 PM - 7:30 PM',
+      capacity: 'Abierto a todos'
+    },
+    { 
+      id: 9, 
+      title: 'Noche de Villancicos', 
+      date: new Date(2025, 11, 6, 19, 0), 
+      category: 'recreativa', 
+      location: 'Plaza Central',
+      description: 'Celebración navideña con villancicos, chocolate caliente y compartir fraterno. Trae tu alegría y voz para cantar juntos.',
+      time: '7:00 PM - 9:00 PM',
+      capacity: 'Abierto a todos'
+    },
+    { 
+      id: 10, 
+      title: 'Recaudación de Juguetes', 
+      date: new Date(2025, 11, 10, 9, 0), 
+      category: 'servicio', 
+      location: 'Stand Entrada Principal',
+      description: 'Campaña solidaria de recolección de juguetes para niños en situación vulnerable. Tu donación puede alegrar la Navidad de un niño.',
+      time: '9:00 AM - 5:00 PM',
+      capacity: 'Todos pueden participar'
+    },
   ]
 
   // Convertir inscripciones a eventos del calendario
@@ -55,13 +150,25 @@ const Perfil = () => {
           end: new Date(actividad.date.getTime() + 60 * 60 * 1000), // +1 hora
           resource: {
             category: actividad.category,
-            location: actividad.location
+            location: actividad.location,
+            description: actividad.description,
+            time: actividad.time,
+            capacity: actividad.capacity,
+            actividadCompleta: actividad
           }
         }
       }
       return null
     }).filter(e => e !== null)
   }, [misInscripciones])
+
+  const handleSelectEvent = (event) => {
+    setSelectedEvent(event)
+  }
+
+  const closeModal = () => {
+    setSelectedEvent(null)
+  }
 
   const handleCancelarInscripcion = (inscripcionId) => {
     if (window.confirm('¿Estás seguro de que deseas cancelar tu inscripción?')) {
@@ -188,6 +295,7 @@ const Perfil = () => {
                       showMore: (total) => `+ Ver más (${total})`
                     }}
                     eventPropGetter={eventStyleGetter}
+                    onSelectEvent={handleSelectEvent}
                   />
                 </div>
               </>
@@ -201,6 +309,52 @@ const Perfil = () => {
             )}
           </div>
         </section>
+      )}
+
+      {/* Modal de Información de Actividad */}
+      {selectedEvent && (
+        <div className={styles.modalOverlay} onClick={closeModal}>
+          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+            <button className={styles.closeBtn} onClick={closeModal}>×</button>
+            <div className={styles.modalHeader}>
+              <h2>{selectedEvent.title}</h2>
+              <span className={`${styles.categoryBadge} ${styles[selectedEvent.resource?.category]}`}>
+                {selectedEvent.resource?.category}
+              </span>
+            </div>
+            <div className={styles.modalBody}>
+              <div className={styles.infoRow}>
+                <span className={styles.icon}>📅</span>
+                <strong>Fecha:</strong>
+                <span>{format(selectedEvent.start, "EEEE, d 'de' MMMM 'de' yyyy", { locale: es })}</span>
+              </div>
+              <div className={styles.infoRow}>
+                <span className={styles.icon}>⏰</span>
+                <strong>Horario:</strong>
+                <span>{selectedEvent.resource?.time}</span>
+              </div>
+              <div className={styles.infoRow}>
+                <span className={styles.icon}>📍</span>
+                <strong>Ubicación:</strong>
+                <span>{selectedEvent.resource?.location}</span>
+              </div>
+              <div className={styles.infoRow}>
+                <span className={styles.icon}>👥</span>
+                <strong>Capacidad:</strong>
+                <span>{selectedEvent.resource?.capacity}</span>
+              </div>
+              <div className={styles.descriptionSection}>
+                <strong>📝 Descripción:</strong>
+                <p>{selectedEvent.resource?.description}</p>
+              </div>
+            </div>
+            <div className={styles.modalFooter}>
+              <button className={`${styles.btn} ${styles.btnPrimary}`} onClick={closeModal}>
+                Cerrar
+              </button>
+            </div>
+          </div>
+        </div>
       )}
 
       {/* Vista de Lista */}

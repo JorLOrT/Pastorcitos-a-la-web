@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import { useToast } from '../components/Toast'
 import styles from '../styles/AdminPanel.module.css'
 
 const AdminPanel = () => {
@@ -36,19 +37,20 @@ const AdminPanel = () => {
 
   const { currentUser, isAdmin } = useAuth()
   const navigate = useNavigate()
+  const { showToast, ToastContainer } = useToast()
 
   useEffect(() => {
     // Verificar si el usuario está logueado
     if (!currentUser) {
-      alert('Debes iniciar sesión para acceder al panel de administración')
-      navigate('/login')
+      showToast('Debes iniciar sesión para acceder al panel de administración', 'warning', 3000)
+      setTimeout(() => navigate('/login'), 1500)
       return
     }
 
     // Verificar si el usuario es administrador
     if (!isAdmin) {
-      alert('No tienes permisos de administrador para acceder a esta página')
-      navigate('/')
+      showToast('No tienes permisos de administrador para acceder a esta página', 'error', 3000)
+      setTimeout(() => navigate('/'), 1500)
       return
     }
 
@@ -75,7 +77,7 @@ const AdminPanel = () => {
 
     // Validaciones
     if (!formData.name || !formData.description || !formData.lat || !formData.lng) {
-      alert('Por favor completa todos los campos obligatorios')
+      showToast('Por favor completa todos los campos obligatorios', 'error', 3000)
       return
     }
 
@@ -103,7 +105,7 @@ const AdminPanel = () => {
       )
       setLocations(updatedLocations)
       localStorage.setItem('mapaLocations', JSON.stringify(updatedLocations))
-      alert('Ubicación actualizada exitosamente')
+      showToast('Ubicación actualizada exitosamente', 'success', 3000)
     } else {
       // Agregar nueva ubicación
       const newLocation = {
@@ -125,7 +127,7 @@ const AdminPanel = () => {
       const updatedLocations = [...locations, newLocation]
       setLocations(updatedLocations)
       localStorage.setItem('mapaLocations', JSON.stringify(updatedLocations))
-      alert('Ubicación agregada exitosamente')
+      showToast('Ubicación agregada exitosamente', 'success', 3000)
     }
 
     // Resetear formulario
@@ -156,7 +158,7 @@ const AdminPanel = () => {
       const updatedLocations = locations.filter(loc => loc.id !== id)
       setLocations(updatedLocations)
       localStorage.setItem('mapaLocations', JSON.stringify(updatedLocations))
-      alert('Ubicación eliminada exitosamente')
+      showToast('Ubicación eliminada exitosamente', 'success', 3000)
     }
   }
 
@@ -188,7 +190,7 @@ const AdminPanel = () => {
     e.preventDefault()
 
     if (!activityFormData.title || !activityFormData.description || !activityFormData.day || !activityFormData.month) {
-      alert('Por favor completa todos los campos obligatorios')
+      showToast('Por favor completa todos los campos obligatorios', 'error', 3000)
       return
     }
 
@@ -212,7 +214,7 @@ const AdminPanel = () => {
       )
       setActivities(updatedActivities)
       localStorage.setItem('adminActivities', JSON.stringify(updatedActivities))
-      alert('Actividad actualizada exitosamente')
+      showToast('Actividad actualizada exitosamente', 'success', 3000)
     } else {
       // Agregar nueva actividad
       const newActivity = {
@@ -230,7 +232,7 @@ const AdminPanel = () => {
       const updatedActivities = [...activities, newActivity]
       setActivities(updatedActivities)
       localStorage.setItem('adminActivities', JSON.stringify(updatedActivities))
-      alert('Actividad agregada exitosamente')
+      showToast('Actividad agregada exitosamente', 'success', 3000)
     }
 
     resetActivityForm()
@@ -258,7 +260,7 @@ const AdminPanel = () => {
       const updatedActivities = activities.filter(act => act.id !== id)
       setActivities(updatedActivities)
       localStorage.setItem('adminActivities', JSON.stringify(updatedActivities))
-      alert('Actividad eliminada exitosamente')
+      showToast('Actividad eliminada exitosamente', 'success', 3000)
     }
   }
 
@@ -489,7 +491,7 @@ const AdminPanel = () => {
 
     setLocations(arequipaLocations)
     localStorage.setItem('mapaLocations', JSON.stringify(arequipaLocations))
-    alert('✅ Mapa reseteado con 12 ubicaciones de Arequipa (3 albergues de niños, 3 albergues de ancianos, 6 ollas comunes)')
+    showToast('✅ Mapa reseteado con 12 ubicaciones de Arequipa (3 albergues de niños, 3 albergues de ancianos, 6 ollas comunes)', 'success', 5000)
     window.location.reload()
   }
 
@@ -960,6 +962,7 @@ const AdminPanel = () => {
         </div>
         )}
       </div>
+      <ToastContainer />
     </div>
   )
 }

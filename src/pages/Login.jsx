@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import { useToast } from '../components/Toast'
 import styles from '../styles/Auth.module.css'
 
 const Login = () => {
@@ -11,11 +12,15 @@ const Login = () => {
   })
   const [errors, setErrors] = useState({})
   const [isLoading, setIsLoading] = useState(false)
-  const [success, setSuccess] = useState(false)
-  const [showAdminInfo, setShowAdminInfo] = useState(false)
   
   const { login } = useAuth()
   const navigate = useNavigate()
+  const { showToast, ToastContainer } = useToast()
+
+  const handleForgotPassword = (e) => {
+    e.preventDefault()
+    showToast('📧 Contacta al administrador: admin@pastoral.com', 'info', 5000)
+  }
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target
@@ -37,12 +42,20 @@ const Login = () => {
   const validateForm = () => {
     const newErrors = {}
 
-    if (!validateEmail(formData.email)) {
+    if (!formData.email) {
+      newErrors.email = 'El correo electrónico es obligatorio'
+      showToast('El correo electrónico es obligatorio', 'error', 3000)
+    } else if (!validateEmail(formData.email)) {
       newErrors.email = 'Por favor ingresa un correo válido'
+      showToast('Por favor ingresa un correo válido (ejemplo: usuario@dominio.com)', 'error', 3000)
     }
 
-    if (formData.password.length < 8) {
+    if (!formData.password) {
+      newErrors.password = 'La contraseña es obligatoria'
+      showToast('La contraseña es obligatoria', 'error', 3000)
+    } else if (formData.password.length < 8) {
       newErrors.password = 'La contraseña debe tener al menos 8 caracteres'
+      showToast('La contraseña debe tener al menos 8 caracteres', 'error', 3000)
     }
 
     setErrors(newErrors)
@@ -63,31 +76,17 @@ const Login = () => {
       const result = login(formData.email, formData.password)
       
       if (result.success) {
-        setSuccess(true)
+        showToast('¡Bienvenido de vuelta! Redirigiendo...', 'success', 2000)
         setTimeout(() => {
           navigate('/')
         }, 1500)
       } else {
         setErrors({ password: result.error })
+        showToast(result.error, 'error', 4000)
       }
       
       setIsLoading(false)
     }, 500)
-  }
-
-  if (success) {
-    return (
-      <div className={styles.authSection}>
-        <div className={styles.authContainer}>
-          <div className={styles.authCard}>
-            <div className={styles.successMessage}>
-              <span className={styles.successIcon}>✓</span>
-              <p>¡Inicio de sesión exitoso!</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
   }
 
   return (
@@ -97,31 +96,12 @@ const Login = () => {
           <div className={styles.authHeader}>
             <h2>Iniciar Sesión</h2>
             <p>Bienvenido de vuelta a la comunidad pastoral</p>
-          </div>
-
-          {/* Información de Admin */}
-          <div className={styles.adminInfo}>
-            <button 
-              type="button"
-              className={styles.btnAdminInfo}
-              onClick={() => setShowAdminInfo(!showAdminInfo)}
-            >
-              ℹ️ Credenciales de Administrador
-            </button>
-            
-            {showAdminInfo && (
-              <div className={styles.adminCredentials}>
-                <h4>👤 Usuario Administrador:</h4>
-                <p><strong>Email:</strong> admin@pastoral.com</p>
-                <p><strong>Contraseña:</strong> Admin2024!</p>
-                <small>⚠️ Solo para administradores del sistema</small>
-              </div>
-            )}
+            <p className={styles.formGuide}>🔐 Ingresa tus credenciales para continuar</p>
           </div>
           
           <form onSubmit={handleSubmit} className={styles.authForm}>
             <div className={styles.formGroup}>
-              <label htmlFor="email">Correo Electrónico</label>
+              <label htmlFor="email">Correo Electrónico *</label>
               <input
                 type="email"
                 id="email"
@@ -134,17 +114,20 @@ const Login = () => {
               {errors.email && (
                 <span className={styles.errorMessage}>{errors.email}</span>
               )}
+              {!errors.email && !formData.email && (
+                <span className={styles.helpText}>💡 Usa el correo con el que te registraste</span>
+              )}
             </div>
 
             <div className={styles.formGroup}>
-              <label htmlFor="password">Contraseña</label>
+              <label htmlFor="password">Contraseña *</label>
               <input
                 type="password"
                 id="password"
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                placeholder="••••••••"
+                placeholder="Mínimo 8 caracteres"
                 required
               />
               {errors.password && (
@@ -162,7 +145,7 @@ const Login = () => {
                 />
                 <span>Recordarme</span>
               </label>
-              <a href="#" className={styles.forgotPassword}>
+              <a href="#" className={styles.forgotPassword} onClick={handleForgotPassword}>
                 ¿Olvidaste tu contraseña?
               </a>
             </div>
@@ -185,6 +168,7 @@ const Login = () => {
           </form>
         </div>
       </div>
+      <ToastContainer />
     </div>
   )
 }
