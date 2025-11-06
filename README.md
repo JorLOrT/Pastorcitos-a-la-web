@@ -1,181 +1,260 @@
 # 🙏 Pastoral La Salle - Sistema de Gestión Pastoral Universitaria
 
-![React](https://img.shields.io/badge/React-18.2.0-61dafb?logo=react&logoColor=white)
+Sistema web para la gestión de actividades pastorales universitarias, desarrollado con **React 18** y **Vite**. Incluye gestión de testimonios, actividades, mapa interactivo de servicio social, calendario personal y panel de administración.![React](https://img.shields.io/badge/React-18.2.0-61dafb?logo=react&logoColor=white)
+
 ![Vite](https://img.shields.io/badge/Vite-5.0.8-646cff?logo=vite&logoColor=white)
-![Leaflet](https://img.shields.io/badge/Leaflet-1.9.4-199900?logo=leaflet&logoColor=white)
+
+---![Leaflet](https://img.shields.io/badge/Leaflet-1.9.4-199900?logo=leaflet&logoColor=white)
+
 ![License](https://img.shields.io/badge/license-MIT-green)
-
-Sistema web completo para la gestión de actividades pastorales universitarias, desarrollado con **React 18** y **Vite**. Incluye gestión de testimonios, actividades, mapa interactivo de servicio social, calendario personal y panel de administración.
-
-🔗 **Repositorio**: [github.com/JorLOrT/Pastorcitos-a-la-web](https://github.com/JorLOrT/Pastorcitos-a-la-web)
-
----
 
 ## 🚀 Inicio Rápido
 
+Sistema web completo para la gestión de actividades pastorales universitarias, desarrollado con **React 18** y **Vite**. Incluye gestión de testimonios, actividades, mapa interactivo de servicio social, calendario personal y panel de administración.
+
 ### **Requisitos Previos**
-- Node.js 16+ 
+
+- Node.js 16+ 🔗 **Repositorio**: [github.com/JorLOrT/Pastorcitos-a-la-web](https://github.com/JorLOrT/Pastorcitos-a-la-web)
+
 - npm o yarn
-- Git
+
+---
 
 ### **Instalación y Ejecución**
 
-```bash
-# 1. Clonar el repositorio
-git clone https://github.com/JorLOrT/Pastorcitos-a-la-web.git
+## 🚀 Inicio Rápido
 
-# 2. Navegar al directorio del proyecto
+```bash
+
+# 1. Clonar el repositorio### **Requisitos Previos**
+
+## git clone "enlacito repo" Node.js 16+ 
+
+- npm o yarn
+
+# 2. Navegar al directorio del proyecto- Git
+
 cd Pastorcitos-a-la-web
 
-# 3. Instalar dependencias
-npm install
+### **Instalación y Ejecución**
 
-# 4. Iniciar el servidor de desarrollo
+# 3. Instalar dependencias
+
+npm install```bash
+
+# 1. Clonar el repositorio
+
+# 4. Iniciar el servidor de desarrollogit clone https://github.com/JorLOrT/Pastorcitos-a-la-web.git
+
 npm run dev
 
-# 5. Abrir en el navegador
-# La aplicación se abrirá automáticamente en http://localhost:5173
-```
+```# 2. Navegar al directorio del proyecto
+
+cd Pastorcitos-a-la-web
 
 ### **Comandos Disponibles**
 
-```bash
-# Desarrollo
-npm run dev          # Inicia servidor de desarrollo con hot-reload
+# 3. Instalar dependencias
 
-# Producción
-npm run build        # Compila el proyecto para producción
+```bashnpm install
+
+npm run dev          # Servidor de desarrollo
+
+npm run build        # Compilar para producción# 4. Iniciar el servidor de desarrollo
+
+npm run preview      # Vista previa del buildnpm run dev
+
+```
+
+# 5. Abrir en el navegador
+
+---# La aplicación se abrirá automáticamente en http://localhost:5173
+
+```
+
+## ✨ Características Principales
+
+### **Comandos Disponibles**
+
+### 🎯 **Para Usuarios**
+
+- 📝 Sistema de autenticación con validación completa```bash
+
+- 📅 Explorar e inscribirse a actividades pastorales# Desarrollo
+
+- 🗓️ Calendario personal con react-big-calendarnpm run dev          # Inicia servidor de desarrollo con hot-reload
+
+- 💬 Galería de testimonios con fotos
+
+- 🗺️ Mapa interactivo de servicio social (Arequipa)# Producción
+
+- 👤 Perfil de usuario con dashboard personalnpm run build        # Compila el proyecto para producción
+
 npm run preview      # Vista previa del build de producción
 
-# Otros
-npm run lint         # Verifica errores de código (si está configurado)
-```
+### 🔧 **Para Administradores**
+
+- 🗺️ Gestión de ubicaciones en el mapa# Otros
+
+- 📅 CRUD completo de actividades pastoralesnpm run lint         # Verifica errores de código (si está configurado)
+
+- 📊 Panel de administración con sistema de pestañas```
+
+- 🎨 Categorización de actividades
+
+---
 
 ---
 
 ## ✨ Características Principales
 
+## 🛠️ Tecnologías
+
 ### 🎯 **Para Usuarios**
-- 📝 **Sistema de Autenticación** - Registro e inicio de sesión con validación completa
-- 📅 **Gestión de Actividades** - Explorar y inscribirse a eventos pastorales
-- 🗓️ **Calendario Personal** - Visualización de actividades suscritas con react-big-calendar
-- 💬 **Testimonios** - Galería de experiencias de la comunidad
-- 🗺️ **Mapa de Servicio Social** - Mapa interactivo con:
-  - 🏠 Albergues para niños
-  - 👴 Albergues para ancianos  
+
+- ⚛️ React 18.2.0- 📝 **Sistema de Autenticación** - Registro e inicio de sesión con validación completa
+
+- ⚡ Vite 5.0.8- 📅 **Gestión de Actividades** - Explorar y inscribirse a eventos pastorales
+
+- 🧭 React Router DOM 6.20.0- 🗓️ **Calendario Personal** - Visualización de actividades suscritas con react-big-calendar
+
+- 🗺️ React Leaflet 4.2.1- 💬 **Testimonios** - Galería de experiencias de la comunidad
+
+- 📅 React Big Calendar- 🗺️ **Mapa de Servicio Social** - Mapa interactivo con:
+
+- 🕐 date-fns  - 🏠 Albergues para niños
+
+- 💾 localStorage para persistencia  - 👴 Albergues para ancianos  
+
   - 🍲 Ollas comunes de Arequipa
-- 👤 **Perfil de Usuario** - Dashboard personal con inscripciones y calendario
 
-### 🔧 **Para Administradores**
+---- 👤 **Perfil de Usuario** - Dashboard personal con inscripciones y calendario
+
+
+
+## 📂 Estructura del Proyecto### 🔧 **Para Administradores**
+
 - 🗺️ **Gestión de Ubicaciones** - CRUD completo para el mapa de servicio
-- 📅 **Gestión de Actividades** - Crear, editar y eliminar eventos pastorales
-- 📊 **Panel de Administración** - Interfaz dedicada con sistema de pestañas
-- 🎨 **Sistema de Categorías** - Organización por tipo de actividad
-- 🔄 **Reseteo de Datos** - Restaurar ubicaciones predeterminadas de Arequipa
 
----
+```- 📅 **Gestión de Actividades** - Crear, editar y eliminar eventos pastorales
 
-## 🛠️ Tecnologías Utilizadas
+src/- 📊 **Panel de Administración** - Interfaz dedicada con sistema de pestañas
+
+├── components/          # Componentes reutilizables (Header, Footer, Toast)- 🎨 **Sistema de Categorías** - Organización por tipo de actividad
+
+├── context/             # Context API (AuthContext)- 🔄 **Reseteo de Datos** - Restaurar ubicaciones predeterminadas de Arequipa
+
+├── pages/               # Páginas (Home, Actividades, Perfil, etc.)
+
+├── styles/              # CSS Modules---
+
+├── App.jsx              # Rutas principales
+
+└── main.jsx             # Punto de entrada## 🛠️ Tecnologías Utilizadas
+
+```
 
 ### **Frontend Core**
-- ⚛️ **React 18.2.0** - Biblioteca principal con hooks
+
+---- ⚛️ **React 18.2.0** - Biblioteca principal con hooks
+
 - ⚡ **Vite 5.0.8** - Build tool ultrarrápido y dev server
-- 🧭 **React Router DOM 6.20.0** - Navegación SPA
+
+## 🗺️ Rutas de la Aplicación- 🧭 **React Router DOM 6.20.0** - Navegación SPA
+
 - 🎨 **CSS Modules** - Estilos con alcance local
 
-### **Funcionalidades Avanzadas**
-- 🗺️ **React Leaflet 4.2.1** - Mapas interactivos con Leaflet
-- 📅 **React Big Calendar** - Calendario de eventos completo
-- 🕐 **date-fns** - Manejo eficiente de fechas
-- 🔄 **Context API** - Gestión de estado global
-- 💾 **localStorage** - Persistencia de datos del lado del cliente
+| Ruta | Descripción | Requiere Auth | Requiere Admin |
 
----
+|------|-------------|---------------|----------------|### **Funcionalidades Avanzadas**
+
+| `/` | Página de inicio | ❌ | ❌ |- 🗺️ **React Leaflet 4.2.1** - Mapas interactivos con Leaflet
+
+| `/testimonios` | Testimonios | ❌ | ❌ |- 📅 **React Big Calendar** - Calendario de eventos completo
+
+| `/actividades` | Actividades | ❌ | ❌ |- 🕐 **date-fns** - Manejo eficiente de fechas
+
+| `/mapa-servicio` | Mapa interactivo | ❌ | ❌ |- 🔄 **Context API** - Gestión de estado global
+
+| `/login` | Inicio de sesión | ❌ | ❌ |- 💾 **localStorage** - Persistencia de datos del lado del cliente
+
+| `/registro` | Registro | ❌ | ❌ |
+
+| `/perfil` | Dashboard personal | ✅ | ❌ |---
+
+| `/admin` | Panel admin | ✅ | ✅ |
 
 ## 📂 Estructura del Proyecto
 
+---
+
 ```
-Pastorcitos-a-la-web/
+
+## 👥 Usuarios de PruebaPastorcitos-a-la-web/
+
 ├── 📁 src/
-│   ├── 📁 components/          # Componentes reutilizables
-│   │   ├── Header.jsx          # Navegación principal
-│   │   └── Footer.jsx          # Pie de página
-│   │
-│   ├── 📁 context/             # Context API
+
+### **Administrador**│   ├── 📁 components/          # Componentes reutilizables
+
+```│   │   ├── Header.jsx          # Navegación principal
+
+📧 Email:    admin@pastoral.com│   │   └── Footer.jsx          # Pie de página
+
+🔑 Password: Admin2024!│   │
+
+```│   ├── 📁 context/             # Context API
+
 │   │   └── AuthContext.jsx    # Autenticación y estado global
-│   │
-│   ├── 📁 pages/               # Páginas principales
+
+### **Usuario Regular**│   │
+
+Regístrate en `/registro` con tus datos│   ├── 📁 pages/               # Páginas principales
+
 │   │   ├── Home.jsx            # Página de inicio
-│   │   ├── Testimonios.jsx    # Testimonios de la comunidad
+
+---│   │   ├── Testimonios.jsx    # Testimonios de la comunidad
+
 │   │   ├── Actividades.jsx    # Lista de actividades
-│   │   ├── MapaServicio.jsx   # Mapa interactivo
+
+## 🎨 Categorías de Actividades│   │   ├── MapaServicio.jsx   # Mapa interactivo
+
 │   │   ├── Perfil.jsx         # Dashboard de usuario
-│   │   ├── Login.jsx          # Inicio de sesión
-│   │   ├── Registro.jsx       # Registro de usuarios
-│   │   └── AdminPanel.jsx     # Panel de administración
-│   │
-│   ├── 📁 styles/              # CSS Modules
-│   │   ├── index.css          # Variables globales y reset
+
+| Categoría | Color | Ejemplos |│   │   ├── Login.jsx          # Inicio de sesión
+
+|-----------|-------|----------|│   │   ├── Registro.jsx       # Registro de usuarios
+
+| **Espiritual** 🙏 | Azul `#0423A4` | Misas, retiros |│   │   └── AdminPanel.jsx     # Panel de administración
+
+| **Servicio** 🤝 | Rosa `#ec4899` | Voluntariados |│   │
+
+| **Formación** 📚 | Azul claro `#2f5dd1` | Talleres, charlas |│   ├── 📁 styles/              # CSS Modules
+
+| **Recreativa** 🎉 | Dorado `#fbbf24` | Convivencias |│   │   ├── index.css          # Variables globales y reset
+
 │   │   └── *.module.css       # Estilos por componente
-│   │
+
+---│   │
+
 │   ├── App.jsx                 # Componente raíz con rutas
-│   └── main.jsx                # Punto de entrada
+
+## 💾 Almacenamiento│   └── main.jsx                # Punto de entrada
+
 │
-├── 📁 public/                   # Archivos estáticos
-├── 📁 legacy-html/             # Versión HTML anterior (referencia)
-├── 📄 package.json             # Dependencias del proyecto
-├── 📄 vite.config.js           # Configuración de Vite
-├── 📄 .gitignore               # Archivos ignorados por Git
-└── 📄 README.md                # Este archivo
+
+Utiliza **localStorage** para:├── 📁 public/                   # Archivos estáticos
+
+- `users` - Base de usuarios├── 📁 legacy-html/             # Versión HTML anterior (referencia)
+
+- `currentUser` - Sesión actual├── 📄 package.json             # Dependencias del proyecto
+
+- `inscripciones` - Suscripciones├── 📄 vite.config.js           # Configuración de Vite
+
+- `mapaLocations` - Ubicaciones del mapa├── 📄 .gitignore               # Archivos ignorados por Git
+
+- `adminActivities` - Actividades creadas└── 📄 README.md                # Este archivo
+
 ```
-
----
-
-## 🗺️ Rutas de la Aplicación
-
-| Ruta | Componente | Descripción | Requiere Auth | Requiere Admin |
-|------|------------|-------------|---------------|----------------|
-| `/` | Home | Página de inicio | ❌ No | ❌ No |
-| `/testimonios` | Testimonios | Testimonios de la comunidad | ❌ No | ❌ No |
-| `/actividades` | Actividades | Lista de actividades pastorales | ❌ No | ❌ No |
-| `/mapa-servicio` | MapaServicio | Mapa interactivo de servicio | ❌ No | ❌ No |
-| `/login` | Login | Inicio de sesión | ❌ No | ❌ No |
-| `/registro` | Registro | Registro de nuevos usuarios | ❌ No | ❌ No |
-| `/perfil` | Perfil | Dashboard y calendario personal | ✅ Sí | ❌ No |
-| `/admin` | AdminPanel | Panel de administración | ✅ Sí | ✅ Sí |
-
----
-
-## 👥 Usuarios de Prueba
-
-### **Usuario Administrador**
-```
-📧 Email:    admin@pastoral.com
-🔑 Password: Admin2024!
-```
-**Permisos**: Acceso completo al panel de administración, gestión de ubicaciones y actividades
-
-### **Usuario Regular**
-Regístrate en `/registro` con tus datos:
-```
-Nombre, Apellido, Email, Carrera, Semestre, Teléfono, Contraseña
-```
-**Permisos**: Inscripción a actividades, perfil personal, calendario
-
----
-
-## 🎨 Paleta de Colores
-
-Diseño basado en azul institucional:
-
-| Color | Código | Uso |
-|-------|--------|-----|
-| **Azul Principal** | `#0423A4` | Color institucional, botones primarios |
-| **Azul Oscuro** | `#031a7a` | Variante oscura para hover |
-| **Azul Claro** | `#3651b8` | Variante clara para highlights |
-| **Azul Secundario** | `#0530c9` | Acentos y gradientes |
-| **Rosa** | `#ec4899` | Actividades de servicio social |
-| **Dorado** | `#fbbf24` | Actividades recreativas |
 
 ---
 
@@ -187,22 +266,6 @@ Diseño basado en azul institucional:
 | **Servicio Social** | 🤝 | Rosa `#ec4899` | Voluntariados, visitas |
 | **Formación** | 📚 | Azul claro `#2f5dd1` | Talleres, charlas |
 | **Recreativa** | 🎉 | Dorado `#fbbf24` | Convivencias, juegos |
-
----
-
-## 💾 Almacenamiento de Datos
-
-El proyecto utiliza **localStorage** para persistencia:
-
-| Clave | Contenido | Descripción |
-|-------|-----------|-------------|
-| `users` | Array de usuarios | Base de datos de usuarios registrados |
-| `currentUser` | Objeto de usuario | Información de sesión actual |
-| `inscripciones` | Array de inscripciones | Suscripciones a actividades por usuario |
-| `mapaLocations` | Array de ubicaciones | Lugares en el mapa de servicio (Arequipa) |
-| `adminActivities` | Array de actividades | Eventos creados por el administrador |
-
-**Nota**: Los datos persisten en el navegador. Para resetear, limpia el localStorage o usa las opciones de admin.
 
 ---
 
@@ -323,87 +386,6 @@ El proyecto incluye guías detalladas en formato Markdown:
 
 ---
 
-## 🤝 Contribuir
-
-¡Las contribuciones son bienvenidas! Para colaborar:
-
-### **Proceso de Contribución**
-
-1. **Fork** el repositorio
-```bash
-# En GitHub, haz click en "Fork"
-```
-
-2. **Clonar** tu fork
-```bash
-git clone https://github.com/TU_USUARIO/Pastorcitos-a-la-web.git
-cd Pastorcitos-a-la-web
-```
-
-3. **Crear** una rama para tu feature
-```bash
-git checkout -b feature/nueva-funcionalidad
-```
-
-4. **Desarrollar** y hacer commits
-```bash
-git add .
-git commit -m "Add: Nueva funcionalidad increíble"
-```
-
-5. **Push** a tu fork
-```bash
-git push origin feature/nueva-funcionalidad
-```
-
-6. **Abrir** un Pull Request en GitHub
-
-### **Convenciones de Commits**
-```
-Add: Nueva funcionalidad
-Fix: Corrección de bug
-Update: Actualización de código existente
-Docs: Cambios en documentación
-Style: Cambios de formato (sin afectar lógica)
-Refactor: Refactorización de código
-Test: Agregar o modificar tests
-```
-
----
-
-## 🐛 Reportar Bugs
-
-Si encuentras un error, abre un **Issue** en GitHub con:
-
-- ✅ Descripción clara del problema
-- ✅ Pasos para reproducir
-- ✅ Comportamiento esperado vs actual
-- ✅ Screenshots (si aplica)
-- ✅ Navegador y versión
-- ✅ Mensajes de error (consola)
-
----
-
-## 🚀 Roadmap
-
-### **Próximas Características**
-- [ ] Backend con Node.js + Express
-- [ ] Base de datos MongoDB/PostgreSQL
-- [ ] Autenticación JWT
-- [ ] Sistema de notificaciones por email
-- [ ] Envío automático de recordatorios
-- [ ] Dashboard de estadísticas para admin
-- [ ] Sistema de comentarios en actividades
-- [ ] Galería de fotos con upload
-- [ ] Chat en tiempo real
-- [ ] PWA (Progressive Web App)
-- [ ] Dark mode
-- [ ] Exportar calendario a .ics
-- [ ] Integración con Google Calendar
-- [ ] Certificados digitales de participación
-
----
-
 ## 📄 Licencia
 
 Este proyecto está bajo la **Licencia MIT**.
@@ -411,7 +393,7 @@ Este proyecto está bajo la **Licencia MIT**.
 ```
 MIT License
 
-Copyright (c) 2025 Jorge
+Copyright (c) 2025 Toribianitos
 
 Se concede permiso, de forma gratuita, a cualquier persona que obtenga una copia
 de este software y archivos de documentación asociados...
@@ -423,71 +405,11 @@ Ver [LICENSE](LICENSE) para más detalles.
 
 ## 👨‍💻 Autor
 
-**Jorge** - Desarrollo Full Stack
+**Toribianitos**
 
-- 🌐 GitHub: [@JorLOrT](https://github.com/JorLOrT)
-- 📧 Email: pastoral@lasalle.edu
 - 🔗 Repositorio: [Pastorcitos-a-la-web](https://github.com/JorLOrT/Pastorcitos-a-la-web)
 
 ---
-
-## 🙏 Agradecimientos
-
-- ⚛️ **React Team** - Por la increíble biblioteca
-- ⚡ **Vite Team** - Por el build tool ultrarrápido  
-- 🗺️ **Leaflet** - Por los mapas interactivos
-- 📅 **React Big Calendar** - Por el componente de calendario
-- 🎓 **La Salle** - Por la inspiración y apoyo
-- 💙 **Comunidad Open Source** - Por las herramientas y recursos
-
----
-
-## 📞 Contacto y Soporte
-
-¿Necesitas ayuda o tienes preguntas?
-
-- 📧 **Email**: pastoral@lasalle.edu
-- 🌐 **Website**: [pastoral-lasalle.com](https://pastoral-lasalle.com)
-- 💬 **Issues**: [GitHub Issues](https://github.com/JorLOrT/Pastorcitos-a-la-web/issues)
-- 📖 **Wiki**: [Documentación](https://github.com/JorLOrT/Pastorcitos-a-la-web/wiki)
-
----
-
-## 📊 Estadísticas del Proyecto
-
-- 📁 **Archivos**: 52+
-- 💻 **Líneas de código**: 14,000+
-- ⚛️ **Componentes React**: 10+
-- 🎨 **Módulos CSS**: 10+
-- 📚 **Páginas**: 8
-- 🗺️ **Ubicaciones en mapa**: 12 (Arequipa)
-
----
-
-## ⭐ ¿Te Gusta el Proyecto?
-
-Si este proyecto te ha sido útil:
-
-1. ⭐ **Dale una estrella** en GitHub
-2. 🍴 **Haz un fork** para tus propios proyectos
-3. 📣 **Compártelo** con otros desarrolladores
-4. 🤝 **Contribuye** con mejoras
-
----
-
-<div align="center">
-
-### **Hecho con ❤️ para la comunidad universitaria de La Salle**
-
-[![GitHub](https://img.shields.io/badge/GitHub-JorLOrT-181717?logo=github)](https://github.com/JorLOrT)
-[![React](https://img.shields.io/badge/React-18.2.0-61dafb?logo=react)](https://reactjs.org/)
-[![Vite](https://img.shields.io/badge/Vite-5.0.8-646cff?logo=vite)](https://vitejs.dev/)
-
-**⭐ Si te gusta este proyecto, dale una estrella en GitHub ⭐**
-
-[🔗 Ver Repositorio](https://github.com/JorLOrT/Pastorcitos-a-la-web) | [📖 Documentación](https://github.com/JorLOrT/Pastorcitos-a-la-web/wiki) | [🐛 Reportar Bug](https://github.com/JorLOrT/Pastorcitos-a-la-web/issues)
-
-</div>
 
 ## 🌟 Características
 
@@ -573,16 +495,6 @@ Para agregar más actividades, edita el archivo `actividades.html` y añade un n
     <!-- Contenido de la actividad -->
 </div>
 ```
-
-## 💾 Almacenamiento de Datos
-
-La aplicación usa **localStorage** del navegador para guardar:
-- Usuarios registrados
-- Sesión actual
-- Inscripciones a actividades
-
-**Nota**: Los datos se almacenan localmente en tu navegador. Si limpias el caché o los datos del navegador, se perderá la información.
-
 ## 📱 Responsive Design
 
 La aplicación está optimizada para:
@@ -595,47 +507,5 @@ La aplicación está optimizada para:
 - **HTML5**: Estructura semántica
 - **CSS3**: Estilos modernos con Flexbox y Grid
 - **JavaScript (Vanilla)**: Funcionalidades interactivas
-- **LocalStorage**: Almacenamiento local de datos
-
-## 🔐 Seguridad
-
-**Importante**: Esta es una aplicación de demostración. Para un entorno de producción:
-- Implementa un backend real con base de datos
-- Usa autenticación segura (JWT, OAuth)
-- Encripta las contraseñas (nunca las almacenes en texto plano)
-- Implementa validación del lado del servidor
-- Usa HTTPS
-
-## 📝 Funcionalidades Futuras (Sugerencias)
-
-- [ ] Backend con Node.js/Express
-- [ ] Base de datos (MongoDB, MySQL)
-- [ ] Sistema de notificaciones por email
-- [ ] Calendario interactivo de actividades
-- [ ] Panel de administración
-- [ ] Chat en tiempo real
-- [ ] Sistema de puntos/gamificación
-- [ ] Integración con redes sociales
-- [ ] Galería de fotos con upload
-- [ ] Certificados digitales de participación
-
-## 👥 Contribuir
-
-Si deseas mejorar este proyecto:
-1. Haz un fork del repositorio
-2. Crea una rama para tu feature (`git checkout -b feature/nueva-funcionalidad`)
-3. Commit tus cambios (`git commit -m 'Agregar nueva funcionalidad'`)
-4. Push a la rama (`git push origin feature/nueva-funcionalidad`)
-5. Abre un Pull Request
-
-## 📄 Licencia
-
-Este proyecto es de código abierto y está disponible para uso educativo.
-
-## 📧 Contacto
-
-Para más información sobre el proyecto, visita la sección de contacto en la aplicación web.
-
----
 
 **Desarrollado con ❤️ para la Pastoral Universitaria La Salle**
