@@ -67,7 +67,7 @@ const Header = () => {
           <Link to="/" className={styles.logoLink} onClick={closeMenu}>
             <div className={styles.logo}>
               <div className={styles.logoIcon}>
-                <img src="/images/logo_universidadSalle.png" alt="Logo Universidad La Salle" />
+                <img src="/images/logo_universidad_la_lle.png" alt="Logo Universidad La Salle" />
               </div>
               <div className={styles.logoText}>
                 <h1>Pastoral La Salle</h1>
