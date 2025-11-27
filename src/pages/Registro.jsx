@@ -33,7 +33,6 @@ const Registro = () => {
     'Administración y Negocios Internacionales'
   ]
 
-  // Derecho tiene 12 semestres, el resto 10
   const getSemestres = () => {
     const maxSemestre = formData.carrera === 'Derecho' ? 12 : 10
     return Array.from({ length: maxSemestre }, (_, i) => i + 1)
@@ -42,7 +41,6 @@ const Registro = () => {
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target
     
-    // Si cambia la carrera, resetear el semestre si es necesario
     if (name === 'carrera') {
       const maxSemestre = value === 'Derecho' ? 12 : 10
       const currentSemestre = parseInt(formData.semestre)
@@ -50,7 +48,6 @@ const Registro = () => {
       setFormData(prev => ({
         ...prev,
         [name]: type === 'checkbox' ? checked : value,
-        // Resetear semestre si excede el máximo para la nueva carrera
         semestre: currentSemestre > maxSemestre ? '' : prev.semestre
       }))
     } else {
@@ -60,7 +57,6 @@ const Registro = () => {
       }))
     }
     
-    // Limpiar error del campo
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }))
     }
@@ -74,62 +70,42 @@ const Registro = () => {
   const validateForm = () => {
     const newErrors = {}
 
-    if (!formData.nombre.trim()) {
-      newErrors.nombre = 'El nombre es obligatorio'
-    } else if (formData.nombre.trim().length < 2) {
-      newErrors.nombre = 'El nombre debe tener al menos 2 caracteres'
-    }
-
-    if (!formData.apellido.trim()) {
-      newErrors.apellido = 'El apellido es obligatorio'
-    } else if (formData.apellido.trim().length < 2) {
-      newErrors.apellido = 'El apellido debe tener al menos 2 caracteres'
-    }
-
+    if (!formData.nombre.trim()) newErrors.nombre = 'El nombre es obligatorio'
+    if (!formData.apellido.trim()) newErrors.apellido = 'El apellido es obligatorio'
+    
     if (!formData.email) {
-      newErrors.email = 'El correo electrónico es obligatorio'
+      newErrors.email = 'El correo es obligatorio'
     } else if (!validateEmail(formData.email)) {
-      newErrors.email = 'Por favor ingresa un correo válido (ejemplo: usuario@dominio.com)'
+      newErrors.email = 'Correo inválido'
     }
 
-    if (!formData.carrera) {
-      newErrors.carrera = 'Por favor selecciona tu carrera'
-    }
-
-    if (!formData.semestre) {
-      newErrors.semestre = 'Por favor selecciona tu semestre'
-    }
+    if (!formData.carrera) newErrors.carrera = 'Selecciona tu carrera'
+    if (!formData.semestre) newErrors.semestre = 'Selecciona tu semestre'
 
     if (!formData.password) {
       newErrors.password = 'La contraseña es obligatoria'
     } else if (formData.password.length < 8) {
-      newErrors.password = 'La contraseña debe tener al menos 8 caracteres'
-    } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(formData.password)) {
-      newErrors.password = 'Debe contener mayúsculas, minúsculas y números'
+      newErrors.password = 'Mínimo 8 caracteres'
     }
 
-    if (!formData.passwordConfirm) {
-      newErrors.passwordConfirm = 'Debes confirmar tu contraseña'
-    } else if (formData.password !== formData.passwordConfirm) {
+    if (formData.password !== formData.passwordConfirm) {
       newErrors.passwordConfirm = 'Las contraseñas no coinciden'
     }
 
     if (!formData.terms) {
-      newErrors.terms = 'Debes aceptar los términos y condiciones'
+      newErrors.terms = 'Debes aceptar los términos'
     }
 
     setErrors(newErrors)
     
-    // Mostrar primer error encontrado
     if (Object.keys(newErrors).length > 0) {
-      const firstError = Object.values(newErrors)[0]
-      showToast(firstError, 'error', 3000)
+      showToast('Por favor corrige los errores', 'error', 3000)
     }
     
     return Object.keys(newErrors).length === 0
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => { // Agregado async
     e.preventDefault()
     
     if (!validateForm()) {
@@ -138,23 +114,28 @@ const Registro = () => {
 
     setIsLoading(true)
 
-    // Simular delay de registro
-    setTimeout(() => {
+    try {
+      // Eliminamos campos auxiliares antes de enviar
       const { passwordConfirm, terms, ...userData } = formData
-      const result = register(userData)
+      
+      // AWAIT ES CRUCIAL AQUÍ para esperar la respuesta del servidor
+      const result = await register(userData)
       
       if (result.success) {
-        showToast('¡Registro exitoso! Bienvenido a la comunidad', 'success', 2000)
+        showToast('¡Registro exitoso! Bienvenido a la comunidad', 'success', 3000)
         setTimeout(() => {
           navigate('/')
-        }, 1500)
+        }, 2000)
       } else {
+        // Si el backend devuelve error (ej. email duplicado)
         setErrors({ email: result.error })
-        showToast(result.error, 'error', 4000)
+        showToast(result.error || 'Error al registrar', 'error', 4000)
+        setIsLoading(false)
       }
-      
+    } catch (error) {
+      showToast('Error de conexión', 'error', 3000)
       setIsLoading(false)
-    }, 500)
+    }
   }
 
   return (
@@ -164,7 +145,6 @@ const Registro = () => {
           <div className={styles.authHeader}>
             <h2>Crear Cuenta</h2>
             <p>Únete a nuestra comunidad pastoral</p>
-            <p className={styles.formGuide}>📝 Completa todos los campos marcados con (*)</p>
           </div>
           
           <form onSubmit={handleSubmit} className={styles.authForm}>
@@ -180,9 +160,7 @@ const Registro = () => {
                   placeholder="Tu nombre"
                   required
                 />
-                {errors.nombre && (
-                  <span className={styles.errorMessage}>{errors.nombre}</span>
-                )}
+                {errors.nombre && <span className={styles.errorMessage}>{errors.nombre}</span>}
               </div>
 
               <div className={styles.formGroup}>
@@ -196,9 +174,7 @@ const Registro = () => {
                   placeholder="Tu apellido"
                   required
                 />
-                {errors.apellido && (
-                  <span className={styles.errorMessage}>{errors.apellido}</span>
-                )}
+                {errors.apellido && <span className={styles.errorMessage}>{errors.apellido}</span>}
               </div>
             </div>
 
@@ -213,12 +189,7 @@ const Registro = () => {
                 placeholder="tu@email.com"
                 required
               />
-              {errors.email && (
-                <span className={styles.errorMessage}>{errors.email}</span>
-              )}
-              {!errors.email && !formData.email && (
-                <span className={styles.helpText}>💡 Usa tu correo institucional</span>
-              )}
+              {errors.email && <span className={styles.errorMessage}>{errors.email}</span>}
             </div>
 
             <div className={styles.formGroup}>
@@ -232,17 +203,10 @@ const Registro = () => {
               >
                 <option value="">Selecciona tu carrera</option>
                 {carreras.map(carrera => (
-                  <option key={carrera} value={carrera}>
-                    {carrera}
-                  </option>
+                  <option key={carrera} value={carrera}>{carrera}</option>
                 ))}
               </select>
-              {errors.carrera && (
-                <span className={styles.errorMessage}>{errors.carrera}</span>
-              )}
-              {!errors.carrera && !formData.carrera && (
-                <span className={styles.helpText}>💡 Selecciona la carrera que estudias</span>
-              )}
+              {errors.carrera && <span className={styles.errorMessage}>{errors.carrera}</span>}
             </div>
 
             <div className={styles.formGroup}>
@@ -259,19 +223,10 @@ const Registro = () => {
                   {formData.carrera ? 'Selecciona tu semestre' : 'Primero selecciona una carrera'}
                 </option>
                 {formData.carrera && getSemestres().map(sem => (
-                  <option key={sem} value={sem}>
-                    {sem}{sem === 1 ? 'er' : sem === 2 ? 'do' : sem === 3 ? 'er' : sem === 7 ? 'mo' : sem === 9 ? 'no' : sem === 10 ? 'mo' : sem === 11 ? 'vo' : sem === 12 ? 'vo' : 'to'} Semestre
-                  </option>
+                  <option key={sem} value={sem}>{sem}º Semestre</option>
                 ))}
               </select>
-              {errors.semestre && (
-                <span className={styles.errorMessage}>{errors.semestre}</span>
-              )}
-              {!errors.semestre && formData.carrera && !formData.semestre && (
-                <span className={styles.helpText}>
-                  💡 {formData.carrera === 'Derecho' ? 'Derecho tiene hasta 12 semestres' : 'Tu carrera tiene hasta 10 semestres'}
-                </span>
-              )}
+              {errors.semestre && <span className={styles.errorMessage}>{errors.semestre}</span>}
             </div>
 
             <div className={styles.formGroup}>
@@ -285,12 +240,7 @@ const Registro = () => {
                 placeholder="Mínimo 8 caracteres"
                 required
               />
-              {errors.password && (
-                <span className={styles.errorMessage}>{errors.password}</span>
-              )}
-              {!errors.password && !formData.password && (
-                <span className={styles.helpText}>💡 Usa mayúsculas, minúsculas y números</span>
-              )}
+              {errors.password && <span className={styles.errorMessage}>{errors.password}</span>}
             </div>
 
             <div className={styles.formGroup}>
@@ -304,9 +254,7 @@ const Registro = () => {
                 placeholder="••••••••"
                 required
               />
-              {errors.passwordConfirm && (
-                <span className={styles.errorMessage}>{errors.passwordConfirm}</span>
-              )}
+              {errors.passwordConfirm && <span className={styles.errorMessage}>{errors.passwordConfirm}</span>}
             </div>
 
             <div className={styles.formGroup}>
@@ -319,9 +267,7 @@ const Registro = () => {
                 />
                 <span>Acepto los <Link to="/terminos" className={styles.link}>términos y condiciones</Link></span>
               </label>
-              {errors.terms && (
-                <span className={styles.errorMessage}>{errors.terms}</span>
-              )}
+              {errors.terms && <span className={styles.errorMessage}>{errors.terms}</span>}
             </div>
 
             <button 

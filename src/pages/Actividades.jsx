@@ -8,6 +8,9 @@ const Actividades = () => {
   const [activeFilter, setActiveFilter] = useState('all')
   const [dateFilter, setDateFilter] = useState('all')
   const [actividades, setActividades] = useState([])
+  // NUEVO: Estado para desplegar filtros
+  const [showFilters, setShowFilters] = useState(false)
+  
   const { currentUser } = useAuth()
   const navigate = useNavigate()
   const { showToast, ToastContainer } = useToast()
@@ -133,81 +136,95 @@ const Actividades = () => {
 
       <section className={styles.activitiesFilters}>
         <div className={styles.container}>
-          <div className={styles.filterWrapper}>
-            <div className={styles.filterCard}>
-              <div className={styles.filterHeader}>
-                <span className={styles.filterIcon}>📂</span>
-                <h3 className={styles.filterTitle}>Categoría</h3>
-              </div>
-              <div className={styles.filterButtons}>
-                <button 
-                  className={`${styles.filterBtn} ${activeFilter === 'all' ? styles.active : ''}`}
-                  onClick={() => setActiveFilter('all')}
-                >
-                  <span className={styles.btnIcon}>🎯</span>
-                  <span className={styles.btnText}>Todas</span>
-                </button>
-                <button 
-                  className={`${styles.filterBtn} ${styles.espiritual} ${activeFilter === 'espiritual' ? styles.active : ''}`}
-                  onClick={() => setActiveFilter('espiritual')}
-                >
-                  <span className={styles.btnIcon}>🙏</span>
-                  <span className={styles.btnText}>Espirituales</span>
-                </button>
-                <button 
-                  className={`${styles.filterBtn} ${styles.servicio} ${activeFilter === 'servicio' ? styles.active : ''}`}
-                  onClick={() => setActiveFilter('servicio')}
-                >
-                  <span className={styles.btnIcon}>❤️</span>
-                  <span className={styles.btnText}>Servicio</span>
-                </button>
-                <button 
-                  className={`${styles.filterBtn} ${styles.formacion} ${activeFilter === 'formacion' ? styles.active : ''}`}
-                  onClick={() => setActiveFilter('formacion')}
-                >
-                  <span className={styles.btnIcon}>📚</span>
-                  <span className={styles.btnText}>Formación</span>
-                </button>
-                <button 
-                  className={`${styles.filterBtn} ${styles.recreativa} ${activeFilter === 'recreativa' ? styles.active : ''}`}
-                  onClick={() => setActiveFilter('recreativa')}
-                >
-                  <span className={styles.btnIcon}>🎉</span>
-                  <span className={styles.btnText}>Recreativas</span>
-                </button>
-              </div>
-            </div>
-
-            <div className={styles.filterCard}>
-              <div className={styles.filterHeader}>
-                <span className={styles.filterIcon}>📅</span>
-                <h3 className={styles.filterTitle}>Fecha</h3>
-              </div>
-              <div className={styles.filterButtons}>
-                <button 
-                  className={`${styles.filterBtn} ${dateFilter === 'all' ? styles.active : ''}`}
-                  onClick={() => setDateFilter('all')}
-                >
-                  <span className={styles.btnIcon}>📋</span>
-                  <span className={styles.btnText}>Todas</span>
-                </button>
-                <button 
-                  className={`${styles.filterBtn} ${dateFilter === 'proximas' ? styles.active : ''}`}
-                  onClick={() => setDateFilter('proximas')}
-                >
-                  <span className={styles.btnIcon}>⚡</span>
-                  <span className={styles.btnText}>Próximos 7 días</span>
-                </button>
-                <button 
-                  className={`${styles.filterBtn} ${dateFilter === 'mes' ? styles.active : ''}`}
-                  onClick={() => setDateFilter('mes')}
-                >
-                  <span className={styles.btnIcon}>📆</span>
-                  <span className={styles.btnText}>Este mes</span>
-                </button>
-              </div>
-            </div>
+          {/* NUEVO: Botón para desplegar filtros */}
+          <div className={styles.filterToggleContainer}>
+            <button 
+              className={styles.toggleFiltersBtn}
+              onClick={() => setShowFilters(!showFilters)}
+            >
+              <span>🔍 Filtrar Actividades</span>
+              <span className={styles.toggleArrow}>{showFilters ? '▲' : '▼'}</span>
+            </button>
           </div>
+
+          {/* Contenedor condicional */}
+          {showFilters && (
+            <div className={styles.filterWrapper}>
+              <div className={styles.filterCard}>
+                <div className={styles.filterHeader}>
+                  <span className={styles.filterIcon}>📂</span>
+                  <h3 className={styles.filterTitle}>Categoría</h3>
+                </div>
+                <div className={styles.filterButtons}>
+                  <button 
+                    className={`${styles.filterBtn} ${activeFilter === 'all' ? styles.active : ''}`}
+                    onClick={() => setActiveFilter('all')}
+                  >
+                    <span className={styles.btnIcon}>🎯</span>
+                    <span className={styles.btnText}>Todas</span>
+                  </button>
+                  <button 
+                    className={`${styles.filterBtn} ${styles.espiritual} ${activeFilter === 'espiritual' ? styles.active : ''}`}
+                    onClick={() => setActiveFilter('espiritual')}
+                  >
+                    <span className={styles.btnIcon}>🙏</span>
+                    <span className={styles.btnText}>Espirituales</span>
+                  </button>
+                  <button 
+                    className={`${styles.filterBtn} ${styles.servicio} ${activeFilter === 'servicio' ? styles.active : ''}`}
+                    onClick={() => setActiveFilter('servicio')}
+                  >
+                    <span className={styles.btnIcon}>❤️</span>
+                    <span className={styles.btnText}>Servicio</span>
+                  </button>
+                  <button 
+                    className={`${styles.filterBtn} ${styles.formacion} ${activeFilter === 'formacion' ? styles.active : ''}`}
+                    onClick={() => setActiveFilter('formacion')}
+                  >
+                    <span className={styles.btnIcon}>📚</span>
+                    <span className={styles.btnText}>Formación</span>
+                  </button>
+                  <button 
+                    className={`${styles.filterBtn} ${styles.recreativa} ${activeFilter === 'recreativa' ? styles.active : ''}`}
+                    onClick={() => setActiveFilter('recreativa')}
+                  >
+                    <span className={styles.btnIcon}>🎉</span>
+                    <span className={styles.btnText}>Recreativas</span>
+                  </button>
+                </div>
+              </div>
+
+              <div className={styles.filterCard}>
+                <div className={styles.filterHeader}>
+                  <span className={styles.filterIcon}>📅</span>
+                  <h3 className={styles.filterTitle}>Fecha</h3>
+                </div>
+                <div className={styles.filterButtons}>
+                  <button 
+                    className={`${styles.filterBtn} ${dateFilter === 'all' ? styles.active : ''}`}
+                    onClick={() => setDateFilter('all')}
+                  >
+                    <span className={styles.btnIcon}>📋</span>
+                    <span className={styles.btnText}>Todas</span>
+                  </button>
+                  <button 
+                    className={`${styles.filterBtn} ${dateFilter === 'proximas' ? styles.active : ''}`}
+                    onClick={() => setDateFilter('proximas')}
+                  >
+                    <span className={styles.btnIcon}>⚡</span>
+                    <span className={styles.btnText}>Próximos 7 días</span>
+                  </button>
+                  <button 
+                    className={`${styles.filterBtn} ${dateFilter === 'mes' ? styles.active : ''}`}
+                    onClick={() => setDateFilter('mes')}
+                  >
+                    <span className={styles.btnIcon}>📆</span>
+                    <span className={styles.btnText}>Este mes</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
           
           <div className={styles.resultsInfo}>
             <div className={styles.resultsCount}>

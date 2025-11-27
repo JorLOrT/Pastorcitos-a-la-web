@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
-import { Link } from 'react-router-dom'
 import L from 'leaflet'
+import { Link } from 'react-router-dom'
 import 'leaflet/dist/leaflet.css'
 import styles from '../styles/MapaServicio.module.css'
 
@@ -26,6 +26,8 @@ const MapaServicio = () => {
   const [filter, setFilter] = useState('all')
   const [selectedLocation, setSelectedLocation] = useState(null)
   const [loading, setLoading] = useState(true)
+  // NUEVO: Estado de filtros
+  const [showFilters, setShowFilters] = useState(false)
 
   useEffect(() => {
     try {
@@ -98,35 +100,49 @@ const MapaServicio = () => {
 
       <section className={styles.filtersSection}>
         <div className={styles.container}>
-          <div className={styles.filters}>
+          
+          {/* NUEVO: Botón de Filtros */}
+          <div className={styles.filterToggleContainer}>
             <button 
-              className={`${styles.filterBtn} ${filter === 'all' ? styles.active : ''}`}
-              onClick={() => setFilter('all')}
+              className={styles.toggleFiltersBtn}
+              onClick={() => setShowFilters(!showFilters)}
             >
-              Todos
-            </button>
-            <button 
-              className={`${styles.filterBtn} ${filter === 'ninos' ? styles.active : ''}`}
-              onClick={() => setFilter('ninos')}
-              style={{ borderColor: '#4CAF50' }}
-            >
-              🏠 Albergues para Niños
-            </button>
-            <button 
-              className={`${styles.filterBtn} ${filter === 'ancianos' ? styles.active : ''}`}
-              onClick={() => setFilter('ancianos')}
-              style={{ borderColor: '#2196F3' }}
-            >
-              👴 Albergues para Ancianos
-            </button>
-            <button 
-              className={`${styles.filterBtn} ${filter === 'ollas' ? styles.active : ''}`}
-              onClick={() => setFilter('ollas')}
-              style={{ borderColor: '#FF9800' }}
-            >
-              🍲 Ollas Comunes
+              <span>🔍 Filtrar Lugares</span>
+              <span className={styles.toggleArrow}>{showFilters ? '▲' : '▼'}</span>
             </button>
           </div>
+
+          {showFilters && (
+            <div className={styles.filters}>
+              <button 
+                className={`${styles.filterBtn} ${filter === 'all' ? styles.active : ''}`}
+                onClick={() => setFilter('all')}
+              >
+                Todos
+              </button>
+              <button 
+                className={`${styles.filterBtn} ${filter === 'ninos' ? styles.active : ''}`}
+                onClick={() => setFilter('ninos')}
+                style={{ borderColor: '#4CAF50' }}
+              >
+                🏠 Albergues para Niños
+              </button>
+              <button 
+                className={`${styles.filterBtn} ${filter === 'ancianos' ? styles.active : ''}`}
+                onClick={() => setFilter('ancianos')}
+                style={{ borderColor: '#2196F3' }}
+              >
+                👴 Albergues para Ancianos
+              </button>
+              <button 
+                className={`${styles.filterBtn} ${filter === 'ollas' ? styles.active : ''}`}
+                onClick={() => setFilter('ollas')}
+                style={{ borderColor: '#FF9800' }}
+              >
+                🍲 Ollas Comunes
+              </button>
+            </div>
+          )}
         </div>
       </section>
 
@@ -204,7 +220,8 @@ const MapaServicio = () => {
                     <div className={styles.infoItem}>
                       <span className={styles.icon}>👥</span>
                       <span>
-                        <strong>Capacidad:</strong> {location.current} / {location.capacity}
+                        {/* CAMBIO: Solo ocupación actual */}
+                        <strong>Ocupación Actual:</strong> {location.current} personas
                       </span>
                     </div>
                     <div className={styles.infoItem}>
@@ -225,18 +242,7 @@ const MapaServicio = () => {
                     </div>
                   </div>
 
-                  <div className={styles.progressBar}>
-                    <div 
-                      className={styles.progress}
-                      style={{ 
-                        width: `${(location.current / location.capacity) * 100}%`,
-                        backgroundColor: getTypeColor(location.type)
-                      }}
-                    ></div>
-                  </div>
-                  <p className={styles.capacityText}>
-                    {location.capacity - location.current} espacios disponibles
-                  </p>
+                  {}
                 </div>
               ))}
             </div>

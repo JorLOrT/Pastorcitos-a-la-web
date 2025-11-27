@@ -230,34 +230,44 @@
   box-shadow: 0 10px 20px rgba(255, 152, 0, 0.3);
 }
 
-/* ===== Hamburger Menu ===== */
+/* ===== Hamburger Menu (MEJORADO Y VISIBLE) ===== */
 .hamburger {
   display: none;
   flex-direction: column;
   cursor: pointer;
-  gap: 5px;
-  background: none;
-  border: none;
-  padding: var(--spacing-sm);
-  border-radius: var(--border-radius);
-  transition: background var(--transition-base);
+  gap: 6px;
+  background: transparent;
+  border: 2px solid var(--light-gray); /* Borde para visibilidad */
+  padding: 10px;
+  border-radius: var(--border-radius-lg);
+  transition: all var(--transition-base);
+  z-index: 1100; /* Encima de todo */
 }
 
 .hamburger:hover {
   background: rgba(4, 35, 164, 0.05);
+  border-color: var(--primary-color);
 }
 
 .hamburger span {
-  width: 26px;
+  width: 28px;
   height: 3px;
-  background: var(--primary-color);
+  background-color: var(--text-color); /* Oscuro para contrastar con fondo blanco */
   transition: all var(--transition-base);
   display: block;
   border-radius: var(--border-radius-full);
 }
 
+.hamburger.active {
+  border-color: transparent;
+}
+
+.hamburger.active span {
+  background-color: var(--primary-color);
+}
+
 .hamburger.active span:nth-child(1) {
-  transform: rotate(45deg) translate(7px, 7px);
+  transform: rotate(45deg) translate(8px, 6px);
 }
 
 .hamburger.active span:nth-child(2) {
@@ -266,7 +276,7 @@
 }
 
 .hamburger.active span:nth-child(3) {
-  transform: rotate(-45deg) translate(7px, -7px);
+  transform: rotate(-45deg) translate(8px, -6px);
 }
 
 /* ===== Overlay para móvil ===== */
@@ -325,7 +335,9 @@
 @media (max-width: 768px) {
   .navMenu {
     position: fixed;
-    left: -100%;
+    /* CAMBIO: Sidebar sale de la DERECHA (right) */
+    right: -100%;
+    left: auto; /* Resetear left */
     top: 0;
     height: 100vh;
     flex-direction: column;
@@ -333,7 +345,7 @@
     width: 80%;
     max-width: 350px;
     text-align: left;
-    transition: left var(--transition-base);
+    transition: right var(--transition-base); /* Transición en right */
     box-shadow: var(--shadow-xl);
     padding: var(--spacing-4xl) var(--spacing-xl);
     gap: var(--spacing-md);
@@ -343,7 +355,7 @@
   }
 
   .navMenu.active {
-    left: 0;
+    right: 0; /* Se muestra pegado a la derecha */
   }
 
   .navMenu li {
@@ -396,7 +408,6 @@
 
   .hamburger {
     display: flex;
-    z-index: calc(var(--z-modal) + 10);
   }
 
   .overlay {
