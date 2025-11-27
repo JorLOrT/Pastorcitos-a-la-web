@@ -101,10 +101,19 @@
 /* Estilos Desktop (Por defecto) */
 .mapContainer {
   position: relative;
-  height: 600px;
+  height: 600px; /* Altura fija padre */
   border-radius: 15px;
   overflow: hidden;
   box-shadow: var(--shadow-lg);
+}
+
+/* --- REGLA CORREGIDA PARA ESCRITORIO --- */
+/* Esto asegura que el mapa llene el contenedor de 600px */
+.mapContainer :global(.leaflet-container) {
+  height: 100%;
+  width: 100%;
+  border-radius: 15px;
+  z-index: 1;
 }
 
 .mapLegend {
@@ -115,7 +124,7 @@
   padding: 1rem;
   border-radius: 10px;
   box-shadow: var(--shadow);
-  z-index: 1000; /* Leaflet usa z-index altos, aseguramos visibilidad */
+  z-index: 1000; /* Leaflet usa z-index altos */
   max-width: 200px;
 }
 
