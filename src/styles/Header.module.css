@@ -230,18 +230,18 @@
   box-shadow: 0 10px 20px rgba(255, 152, 0, 0.3);
 }
 
-/* ===== Hamburger Menu (MEJORADO Y VISIBLE) ===== */
+/* ===== Hamburger Menu ===== */
 .hamburger {
   display: none;
   flex-direction: column;
   cursor: pointer;
   gap: 6px;
   background: transparent;
-  border: 2px solid var(--light-gray); /* Borde para visibilidad */
+  border: 2px solid var(--light-gray);
   padding: 10px;
   border-radius: var(--border-radius-lg);
   transition: all var(--transition-base);
-  z-index: 1100; /* Encima de todo */
+  z-index: 1100;
 }
 
 .hamburger:hover {
@@ -252,7 +252,7 @@
 .hamburger span {
   width: 28px;
   height: 3px;
-  background-color: var(--text-color); /* Oscuro para contrastar con fondo blanco */
+  background-color: var(--text-color);
   transition: all var(--transition-base);
   display: block;
   border-radius: var(--border-radius-full);
@@ -335,9 +335,8 @@
 @media (max-width: 768px) {
   .navMenu {
     position: fixed;
-    /* CAMBIO: Sidebar sale de la DERECHA (right) */
     right: -100%;
-    left: auto; /* Resetear left */
+    left: auto;
     top: 0;
     height: 100vh;
     flex-direction: column;
@@ -345,7 +344,11 @@
     width: 80%;
     max-width: 350px;
     text-align: left;
-    transition: right var(--transition-base); /* Transición en right */
+    
+    /* FIX: Usar visibility para evitar que se "vea" al hacer scroll cuando está cerrado */
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s;
+    visibility: hidden;
+    
     box-shadow: var(--shadow-xl);
     padding: var(--spacing-4xl) var(--spacing-xl);
     gap: var(--spacing-md);
@@ -355,7 +358,8 @@
   }
 
   .navMenu.active {
-    right: 0; /* Se muestra pegado a la derecha */
+    right: 0;
+    visibility: visible;
   }
 
   .navMenu li {

@@ -109,9 +109,12 @@
   color: var(--white);
 }
 
+/* FIX CRÍTICO: Evitar scroll horizontal en móviles */
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 80px; /* Para navegación sticky */
+  scroll-padding-top: 80px; 
+  overflow-x: hidden;
+  width: 100%;
 }
 
 body {
@@ -123,12 +126,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
+  width: 100%;
+  position: relative;
 }
 
 .app {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 main {
@@ -497,4 +504,3 @@ a:focus-visible {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--primary-color);
 }
-
