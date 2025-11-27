@@ -14,97 +14,66 @@ export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null)
   const [loading, setLoading] = useState(true)
 
-  // Usuario administrador predefinido
-  const ADMIN_USER = {
-    id: 'admin-001',
-    nombre: 'Administrador',
-    apellido: 'Pastoral',
-    email: 'admin@pastoral.com',
-    password: 'Admin2024!',
-    carrera: 'Administración y Negocios Internacionales',
-    semestre: '10',
-    isAdmin: true,
-    fechaRegistro: '2024-01-01'
-  }
-
   useEffect(() => {
-    // Cargar usuario desde localStorage
-    const user = localStorage.getItem('currentUser')
-    if (user) {
-      setCurrentUser(JSON.parse(user))
-    }
+    const storedUser = localStorage.getItem('user')
+    const token = localStorage.getItem('token')
     
-    // Asegurar que el usuario admin esté en la lista de usuarios
-    const users = JSON.parse(localStorage.getItem('users')) || []
-    const adminExists = users.some(u => u.email === ADMIN_USER.email)
-    if (!adminExists) {
-      users.push(ADMIN_USER)
-      localStorage.setItem('users', JSON.stringify(users))
+    if (storedUser && token) {
+        setCurrentUser(JSON.parse(storedUser))
     }
-    
     setLoading(false)
   }, [])
 
-  const login = (email, password) => {
-    // Verificar admin primero
-    if (email === 'admin@pastoral.com' && password === 'Admin2024!') {
-      const adminUser = {
-        id: 'admin-001',
-        nombre: 'Administrador',
-        apellido: 'Pastoral',
-        email: 'admin@pastoral.com',
-        carrera: 'Administración y Negocios Internacionales',
-        semestre: '10',
-        isAdmin: true,
-        fechaRegistro: '2024-01-01'
-      }
-      setCurrentUser(adminUser)
-      localStorage.setItem('currentUser', JSON.stringify(adminUser))
-      return { success: true }
-    }
+  const login = async (email, password) => {
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
 
-    // Verificar usuarios registrados
-    const users = JSON.parse(localStorage.getItem('users')) || []
-    const user = users.find(u => u.email === email && u.password === password)
-    
-    if (user) {
-      setCurrentUser(user)
-      localStorage.setItem('currentUser', JSON.stringify(user))
-      return { success: true }
+      const data = await response.json();
+
+      if (response.ok) {
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
+        setCurrentUser(data.user);
+        return { success: true };
+      } else {
+        return { success: false, error: data.error };
+      }
+    } catch (error) {
+      return { success: false, error: 'Error de conexión con el servidor' };
     }
-    
-    return { success: false, error: 'Correo o contraseña incorrectos' }
   }
 
-  const register = (userData) => {
-    const users = JSON.parse(localStorage.getItem('users')) || []
-    
-    // Verificar si el email ya existe
-    const emailExists = users.some(u => u.email === userData.email)
-    if (emailExists) {
-      return { success: false, error: 'Este correo ya está registrado' }
-    }
+  const register = async (userData) => {
+    try {
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userData)
+      });
 
-    // Crear nuevo usuario
-    const newUser = {
-      id: Date.now(),
-      ...userData,
-      fechaRegistro: new Date().toISOString()
-    }
+      const data = await response.json();
 
-    users.push(newUser)
-    localStorage.setItem('users', JSON.stringify(users))
-    
-    // Login automático
-    setCurrentUser(newUser)
-    localStorage.setItem('currentUser', JSON.stringify(newUser))
-    
-    return { success: true }
+      if (response.ok) {
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
+        setCurrentUser(data.user);
+        return { success: true };
+      } else {
+        return { success: false, error: data.error };
+      }
+    } catch (error) {
+      return { success: false, error: 'Error de conexión' };
+    }
   }
 
   const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
     setCurrentUser(null)
-    localStorage.removeItem('currentUser')
   }
 
   const value = {
@@ -113,7 +82,7 @@ export const AuthProvider = ({ children }) => {
     register,
     logout,
     loading,
-    isAdmin: currentUser?.isAdmin || false
+    isAdmin: currentUser?.is_admin || false
   }
 
   return (
