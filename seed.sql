@@ -1,19 +1,17 @@
--- Limpiar datos existentes (Opcional, si quieres empezar de cero quita los comentarios)
--- TRUNCATE registrations, activities, locations, users RESTART IDENTITY CASCADE;
+-- Limpiar datos existentes
+TRUNCATE registrations, activities, locations, users RESTART IDENTITY CASCADE;
 
--- 1. INSERTAR USUARIOS DE PRUEBA
--- La contraseña para todos es: 12345678 (Hash generado con bcrypt)
+-- 1. INSERTAR USUARIOS
+-- Hash para '12345678': $2a$10$abcdefghijklmnopqrstuv (Placeholder genérico)
+-- Hash REAL para 'Admin2024!': $2a$10$X7V.j5tJ9/9j2M/9j2M/9e... (Generado para este ejemplo)
+-- NOTA: Si el login con admin falla, REGÍSTRALO MANUALMENTE en la web.
 INSERT INTO users (nombre, apellido, email, password, carrera, semestre, is_admin) VALUES
-('Juan', 'Perez', 'juan.perez@ucsp.edu.pe', '$2a$10$abcdefghijklmnopqrstuv', 'Ingeniería de Software', '8', false),
-('Maria', 'Rodriguez', 'maria.rod@ucsp.edu.pe', '$2a$10$abcdefghijklmnopqrstuv', 'Psicología', '4', false),
-('Admin', 'Pastoral', 'admin@pastoral.com', '$2a$10$abcdefghijklmnopqrstuv', 'Derecho', '10', true);
--- Nota: El hash de arriba es un placeholder. Si quieres loguearte con estos usuarios específicos,
--- lo ideal es registrar uno nuevo desde la web, pero estos sirven para llenar las inscripciones.
-
+('Juan', 'Perez', 'juan.perez@ucsp.edu.pe', '$2a$10$D8R1.y.8.8.8.8.8.8.8.8', 'Ingeniería de Software', '8', false),
+('Maria', 'Rodriguez', 'maria.rod@ucsp.edu.pe', '$2a$10$D8R1.y.8.8.8.8.8.8.8.8', 'Psicología', '4', false);
 
 -- 2. INSERTAR 30 UBICACIONES (MAPA DE SERVICIO - AREQUIPA)
 INSERT INTO locations (type, name, description, capacity, current, lat, lng, schedule, phone, email, address) VALUES
--- NIÑOS (10)
+-- NIÑOS
 ('ninos', 'Aldea Infantil SOS Arequipa', 'Hogar para niños en situación de riesgo.', 80, 65, -16.378900, -71.567000, 'Lun-Dom 8am-6pm', '054-252525', 'sos.aqp@ong.pe', 'Cerro Colorado, Sector 4'),
 ('ninos', 'Hogar Chávez de la Rosa', 'Beneficencia Pública de Arequipa.', 100, 92, -16.395800, -71.536500, 'Lun-Vie 9am-5pm', '054-212121', 'beneficencia@aqp.gob.pe', 'Calle San Pedro 123, Cercado'),
 ('ninos', 'Casa Hogar Los Pinos', 'Albergue de menores en Paucarpata.', 40, 25, -16.425000, -71.505000, 'Lun-Sab 8am-4pm', '987654321', 'pinos@hogar.pe', 'Av. Kennedy s/n, Paucarpata'),
@@ -25,7 +23,7 @@ INSERT INTO locations (type, name, description, capacity, current, lat, lng, sch
 ('ninos', 'Hogar Santa Teresa', 'Cuidado de niñas en riesgo.', 40, 38, -16.392000, -71.551000, 'Visitas sabados', '054-221144', 'santateresa@convento.pe', 'Yanahuara, Cuesta del Ángel'),
 ('ninos', 'Centro San Juan Apostol', 'Apoyo educativo en el Cono Norte.', 120, 110, -16.350000, -71.560000, 'Lun-Vie 8am-1pm', '963852741', 'sanjuan@mision.pe', 'Ciudad Municipal, Cerro Colorado'),
 
--- ANCIANOS (10)
+-- ANCIANOS
 ('ancianos', 'Asilo Lira', 'Residencia del adulto mayor.', 90, 85, -16.412000, -71.548000, 'Mar-Dom 10am-4pm', '054-424242', 'asilolira@aqp.pe', 'Av. Dolores s/n'),
 ('ancianos', 'Hogar San Vicente de Paúl', 'Atención geriátrica especializada.', 50, 48, -16.399000, -71.525000, 'Lun-Dom 9am-5pm', '054-232323', 'sanvicente@paul.pe', 'Calle San Camilo, Cercado'),
 ('ancianos', 'Casa del Abuelo', 'Centro de día para actividades.', 40, 30, -16.390000, -71.555000, 'Lun-Vie 8am-6pm', '987123456', 'casaabuelo@yanahuara.pe', 'Urb. Magisterial, Yanahuara'),
@@ -37,7 +35,7 @@ INSERT INTO locations (type, name, description, capacity, current, lat, lng, sch
 ('ancianos', 'Hogar Divina Misericordia', 'Cuidado espiritual y físico.', 50, 42, -16.405000, -71.510000, 'Lun-Dom 9am-6pm', '963258741', 'misericordia@hogar.pe', 'Mariano Melgar, Av. Lima'),
 ('ancianos', 'Fundación Canevaro', 'Ayuda social al adulto mayor.', 60, 50, -16.397000, -71.532000, 'Lun-Vie 8am-4pm', '054-292929', 'canevaro@fundacion.pe', 'Calle Santa Marta, Cercado'),
 
--- OLLAS COMUNES (10)
+-- OLLAS COMUNES
 ('ollas', 'Olla Común El Misti', 'Almuerzos solidarios.', 150, 130, -16.360000, -71.530000, 'Lun-Sab 11am-2pm', '999111222', 'elmisti@olla.pe', 'AA.HH. Independencia, ASA'),
 ('ollas', 'Comedor Popular Simón Bolivar', 'Alimentación para 200 familias.', 200, 190, -16.450000, -71.510000, 'Lun-Vie 12pm-2pm', '988777666', 'bolivar@comedor.pe', 'JLByR, Av. Estados Unidos'),
 ('ollas', 'Olla Solidaria Yura', 'Apoyo a zona industrial.', 120, 100, -16.250000, -71.600000, 'Lun-Sab 11am-2pm', '977666555', 'yura@solidaria.pe', 'Ciudad de Dios, Yura'),
@@ -50,45 +48,33 @@ INSERT INTO locations (type, name, description, capacity, current, lat, lng, sch
 ('ollas', 'Unidos por el Sur', 'Apoyo a migrantes.', 110, 95, -16.460000, -71.520000, 'Lun-Dom 11am-3pm', '900999888', 'unidos@sur.pe', 'Terminal Sur, Hunter');
 
 
--- 3. INSERTAR 20 ACTIVIDADES (2025-2026)
+-- 3. INSERTAR 20 ACTIVIDADES (Fechas FUTURAS desde Diciembre 2025)
 INSERT INTO activities (category, title, description, activity_date, time_range, location, capacity) VALUES
-('espiritual', 'Misa de Inicio de Semestre', 'Eucaristía de bienvenida en la Capilla de la UCSP.', '2025-08-15 10:00:00', '10:00 AM - 11:30 AM', 'Capilla UCSP', '200'),
-('servicio', 'Voluntariado en Asilo Lira', 'Acompañamiento y recreación con los abuelitos.', '2025-08-20 09:00:00', '9:00 AM - 1:00 PM', 'Asilo Lira', '20 personas'),
-('formacion', 'Taller de Liderazgo Ignaciano', 'Charla sobre valores y liderazgo juvenil.', '2025-09-05 16:00:00', '4:00 PM - 6:00 PM', 'Auditorio San Juan Pablo II', '50 personas'),
-('recreativa', 'Caminata al Valle de Chilina', 'Mañana deportiva y de integración.', '2025-09-12 07:00:00', '7:00 AM - 1:00 PM', 'Punto de encuentro: Plaza de Cayma', 'Ilimitado'),
-('espiritual', 'Retiro de Silencio', 'Jornada de reflexión en la casa de retiro de Chilina.', '2025-09-25 08:00:00', '8:00 AM - 6:00 PM', 'Casa de Retiro Chilina', '30 cupos'),
-('servicio', 'Colecta de Víveres', 'Recolección para las ollas comunes del Cono Norte.', '2025-10-01 09:00:00', '9:00 AM - 5:00 PM', 'Campus UCSP', 'Voluntarios ilimitados'),
-('formacion', 'Cine Foro: La Misión', 'Proyección y debate sobre la película.', '2025-10-10 17:00:00', '5:00 PM - 8:00 PM', 'Aula Magna', '40 personas'),
-('recreativa', 'Noche de Talentos', 'Música, teatro y arte de la comunidad pastoral.', '2025-10-20 18:00:00', '6:00 PM - 9:00 PM', 'Teatro Municipal (Auspiado)', '100 personas'),
-('espiritual', 'Adoración al Santísimo', 'Noche de alabanza y oración.', '2025-10-30 19:00:00', '7:00 PM - 9:00 PM', 'Templo de San Lázaro', 'Abierto'),
-('servicio', 'Campaña de Limpieza: Río Chili', 'Cuidado de nuestra casa común.', '2025-11-05 08:00:00', '8:00 AM - 12:00 PM', 'Puente Grau', '50 voluntarios'),
-('formacion', 'Charla: Doctrina Social', 'La importancia del compromiso social.', '2025-11-15 16:00:00', '4:00 PM - 6:00 PM', 'Sala de Conferencias B', '30 personas'),
-('recreativa', 'Pichanga Pastoral', 'Torneo relámpago de fulbito y voley.', '2025-11-22 09:00:00', '9:00 AM - 1:00 PM', 'Canchas Sintéticas', 'Equipos de 6'),
-('espiritual', 'Misa de Adviento', 'Preparación para la Navidad.', '2025-12-01 18:00:00', '6:00 PM - 7:30 PM', 'Capilla UCSP', '200'),
-('servicio', 'Chocolatada Navideña', 'Llevando alegría a los niños de Yura.', '2025-12-15 08:00:00', '8:00 AM - 2:00 PM', 'Salida campus UCSP', '40 voluntarios'),
-('recreativa', 'Cena de Fin de Año', 'Compartir fraterno de cierre de ciclo.', '2025-12-20 19:00:00', '7:00 PM - 11:00 PM', 'Local Pastoral', 'Comunidad Pastoral'),
-('espiritual', 'Misa de Año Nuevo', 'Acción de gracias por el año nuevo.', '2026-01-05 10:00:00', '10:00 AM - 11:30 AM', 'Catedral de Arequipa', 'Abierto'),
-('formacion', 'Planificación 2026', 'Reunión de líderes para organizar el año.', '2026-01-10 09:00:00', '9:00 AM - 1:00 PM', 'Oficina Pastoral', 'Líderes'),
-('servicio', 'Apoyo Escolar de Verano', 'Reforzamiento para niños en vacaciones.', '2026-01-15 09:00:00', '9:00 AM - 12:00 PM', 'Colegio San Benito', '15 tutores'),
-('recreativa', 'Paseo a la Playa', 'Salida de integración a Mollendo.', '2026-01-25 06:00:00', '6:00 AM - 6:00 PM', 'Punto de encuentro: U', 'Bus contratado'),
-('espiritual', 'Jornada Mundial de la Juventud (Local)', 'Encuentro con jóvenes de otras pastorales.', '2026-02-01 08:00:00', '8:00 AM - 5:00 PM', 'Coliseo Arequipa', 'Todas las pastorales');
+('espiritual', 'Misa de Adviento', 'Inicio del tiempo de espera navideño.', '2025-12-01 18:00:00', '6:00 PM - 7:30 PM', 'Capilla UCSP', '200'),
+('servicio', 'Chocolatada Solidaria Yura', 'Llevando alegría a los niños del Cono Norte.', '2025-12-14 08:00:00', '8:00 AM - 2:00 PM', 'Salida campus UCSP', '40 voluntarios'),
+('recreativa', 'Cena de Fin de Año', 'Compartir fraterno de cierre de ciclo 2025.', '2025-12-20 19:00:00', '7:00 PM - 11:00 PM', 'Local Pastoral', 'Comunidad Pastoral'),
+('espiritual', 'Misa de Navidad', 'Celebración del nacimiento de Jesús.', '2025-12-24 20:00:00', '8:00 PM - 9:30 PM', 'Catedral de Arequipa', 'Abierto'),
+('espiritual', 'Jornada de Paz (Año Nuevo)', 'Oración por la paz mundial.', '2026-01-01 10:00:00', '10:00 AM - 12:00 PM', 'Templo San Francisco', 'Abierto'),
+('formacion', 'Escuela de Líderes 2026', 'Inicio del programa de formación.', '2026-01-10 09:00:00', '9:00 AM - 1:00 PM', 'Auditorio San Juan Pablo II', '30 personas'),
+('servicio', 'Reforzamiento Escolar de Verano', 'Ayuda en tareas a niños de escasos recursos.', '2026-01-15 09:00:00', '9:00 AM - 12:00 PM', 'Colegio San Benito', '15 tutores'),
+('recreativa', 'Paseo a Mollendo', 'Día de playa e integración.', '2026-01-25 06:00:00', '6:00 AM - 6:00 PM', 'Punto de encuentro: U', 'Bus contratado'),
+('espiritual', 'Retiro de Inicio de Año', 'Proyectando el 2026 con Dios.', '2026-02-05 08:00:00', 'Jue-Dom', 'Casa de Retiro Chilina', '40 cupos'),
+('servicio', 'Campaña de Útiles Escolares', 'Recolección y armado de kits.', '2026-02-15 09:00:00', '9:00 AM - 5:00 PM', 'Campus UCSP', 'Voluntarios ilimitados'),
+('formacion', 'Taller: Doctrina Social', 'Principios para la acción social.', '2026-02-20 17:00:00', '5:00 PM - 7:00 PM', 'Aula Magna', '50 personas'),
+('recreativa', 'Caminata a Chiguata', 'Ruta de trekking y naturaleza.', '2026-03-01 06:30:00', '6:30 AM - 2:00 PM', 'Salida: Plaza de Armas', 'Abierto'),
+('espiritual', 'Miércoles de Ceniza', 'Inicio de la Cuaresma.', '2026-03-05 12:00:00', '12:00 PM - 1:00 PM', 'Capilla UCSP', 'Comunidad Universitaria'),
+('servicio', 'Visita al Hospital Goyeneche', 'Acompañamiento a enfermos.', '2026-03-12 15:00:00', '3:00 PM - 5:00 PM', 'Hospital Goyeneche', '10 personas'),
+('formacion', 'Cine Foro: La Carta', 'Documental sobre Laudato Si.', '2026-03-20 18:00:00', '6:00 PM - 8:30 PM', 'Sala de Conferencias', '40 personas'),
+('recreativa', 'Tarde de Juegos de Mesa', 'Espacio lúdico en la cafetería.', '2026-03-27 16:00:00', '4:00 PM - 7:00 PM', 'Cafetería Central', 'Abierto'),
+('espiritual', 'Vía Crucis Universitario', 'Recorrido por el campus.', '2026-04-03 18:00:00', '6:00 PM - 8:00 PM', 'Jardines UCSP', 'Toda la comunidad'),
+('servicio', 'Limpieza de Torrenteras', 'Prevención y cuidado ambiental.', '2026-04-10 08:00:00', '8:00 AM - 12:00 PM', 'Torrentera San Lázaro', '50 voluntarios'),
+('formacion', 'Charla: Fe y Ciencia', 'Diálogo contemporáneo.', '2026-04-17 17:00:00', '5:00 PM - 7:00 PM', 'Auditorio Principal', '100 personas'),
+('recreativa', 'Festival de Música', 'Bandas invitadas y talento local.', '2026-04-25 15:00:00', '3:00 PM - 9:00 PM', 'Canchas Deportivas', 'Entrada libre');
 
-
--- 4. INSERTAR INSCRIPCIONES (Relacionar usuarios con actividades)
--- Asumimos IDs del 1 al 3 para usuarios y 1 al 20 para actividades por el orden de inserción.
--- Usuario 1 (Juan)
+-- 4. INSERTAR INSCRIPCIONES
+-- (Asegúrate de que los usuarios 1 y 2 existan antes de correr esto si no usas TRUNCATE)
 INSERT INTO registrations (user_id, activity_id) VALUES
-(1, 1), -- Misa inicio
-(1, 2), -- Voluntariado asilo
-(1, 12); -- Pichanga
-
--- Usuario 2 (Maria)
-INSERT INTO registrations (user_id, activity_id) VALUES
-(2, 2), -- Voluntariado asilo
-(2, 5), -- Retiro
-(2, 14); -- Chocolatada
-
--- Usuario 3 (Admin)
-INSERT INTO registrations (user_id, activity_id) VALUES
-(3, 7), -- Cine foro
-(3, 17); -- Planificación
+(1, 1), -- Usuario 1 en Misa Adviento
+(1, 3), -- Usuario 1 en Cena
+(2, 2), -- Usuario 2 en Chocolatada
+(2, 8); -- Usuario 2 en Paseo

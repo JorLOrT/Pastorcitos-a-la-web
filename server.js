@@ -47,7 +47,6 @@ app.post('/api/auth/register', async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
     
-    // Admin harcodeado para pruebas iniciales o lógica específica
     const isAdmin = email === 'admin@pastoral.com';
 
     const newUser = await pool.query(

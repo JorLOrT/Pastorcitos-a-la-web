@@ -11,8 +11,8 @@ const Footer = () => {
           </div>
           <div className={styles.footerSection}>
             <h3>Contacto</h3>
-            <p>📧 pastoral@lasalle.edu</p>
-            <p>📱 +123 456 7890</p>
+            <p>📧 pastoral@ulasalle.edu</p>
+            <p>📱 +51 917 707 381</p>
           </div>
           <div className={styles.footerSection}>
             <h3>Horarios</h3>

@@ -34,7 +34,7 @@
   gap: var(--spacing-2xl);
 }
 
-/* ===== Logo Mejorado ===== */
+/* ===== Logo Mejorado (Transparente) ===== */
 .logoLink {
   text-decoration: none;
   display: flex;
@@ -49,33 +49,30 @@
 .logo {
   display: flex;
   align-items: center;
-  gap: var(--spacing-md);
+  gap: var(--spacing-sm); /* Gap reducido */
   min-width: fit-content;
 }
 
 .logoIcon {
-  width: 55px;
-  height: 55px;
+  /* CAMBIOS: Quitamos fondo, bordes y sombras para que se mezcle */
+  width: 60px; /* Ligeramente más grande para compensar falta de marco */
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: transform var(--transition-bounce);
-  background: var(--white);
-  border-radius: var(--border-radius-lg);
-  padding: var(--spacing-xs);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  border: 1px solid var(--light-gray);
+  /* background, border y box-shadow eliminados */
 }
 
 .logoIcon img {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); /* Sombra sutil a la imagen directa */
 }
 
 .logoLink:hover .logoIcon {
   transform: rotate(5deg) scale(1.05);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .logoText h1 {
@@ -344,11 +341,8 @@
     width: 80%;
     max-width: 350px;
     text-align: left;
-    
-    /* FIX: Usar visibility para evitar que se "vea" al hacer scroll cuando está cerrado */
     transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s;
     visibility: hidden;
-    
     box-shadow: var(--shadow-xl);
     padding: var(--spacing-4xl) var(--spacing-xl);
     gap: var(--spacing-md);

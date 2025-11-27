@@ -44,25 +44,24 @@ const Login = () => {
 
     if (!formData.email) {
       newErrors.email = 'El correo electrónico es obligatorio'
-      showToast('El correo electrónico es obligatorio', 'error', 3000)
     } else if (!validateEmail(formData.email)) {
       newErrors.email = 'Por favor ingresa un correo válido'
-      showToast('Por favor ingresa un correo válido (ejemplo: usuario@dominio.com)', 'error', 3000)
     }
 
     if (!formData.password) {
       newErrors.password = 'La contraseña es obligatoria'
-      showToast('La contraseña es obligatoria', 'error', 3000)
-    } else if (formData.password.length < 8) {
-      newErrors.password = 'La contraseña debe tener al menos 8 caracteres'
-      showToast('La contraseña debe tener al menos 8 caracteres', 'error', 3000)
     }
 
     setErrors(newErrors)
+    
+    if (Object.keys(newErrors).length > 0) {
+      showToast(Object.values(newErrors)[0], 'error', 3000)
+    }
+
     return Object.keys(newErrors).length === 0
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     
     if (!validateForm()) {
@@ -71,22 +70,25 @@ const Login = () => {
 
     setIsLoading(true)
 
-    // Simular delay de autenticación
-    setTimeout(() => {
-      const result = login(formData.email, formData.password)
+    try {
+      // AWAIT es fundamental aquí. Esperamos a que el servidor responda.
+      const result = await login(formData.email, formData.password)
       
       if (result.success) {
-        showToast('¡Bienvenido de vuelta! Redirigiendo...', 'success', 2000)
+        showToast('¡Bienvenido de vuelta!', 'success', 2000)
         setTimeout(() => {
           navigate('/')
-        }, 1500)
+        }, 1000)
       } else {
+        // Aquí 'result.error' ya contiene el texto del backend (ej: "Credenciales inválidas")
         setErrors({ password: result.error })
-        showToast(result.error, 'error', 4000)
+        showToast(result.error || 'Error al iniciar sesión', 'error', 4000)
+        setIsLoading(false)
       }
-      
+    } catch (error) {
+      showToast('Error de conexión con el servidor', 'error', 3000)
       setIsLoading(false)
-    }, 500)
+    }
   }
 
   return (
@@ -114,9 +116,6 @@ const Login = () => {
               {errors.email && (
                 <span className={styles.errorMessage}>{errors.email}</span>
               )}
-              {!errors.email && !formData.email && (
-                <span className={styles.helpText}>💡 Usa el correo con el que te registraste</span>
-              )}
             </div>
 
             <div className={styles.formGroup}>
@@ -127,7 +126,7 @@ const Login = () => {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                placeholder="Mínimo 8 caracteres"
+                placeholder="Ingresa tu contraseña"
                 required
               />
               {errors.password && (
