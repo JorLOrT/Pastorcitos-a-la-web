@@ -26,7 +26,6 @@ const MapaServicio = () => {
   const [filter, setFilter] = useState('all')
   const [selectedLocation, setSelectedLocation] = useState(null)
   const [loading, setLoading] = useState(true)
-  // NUEVO: Estado de filtros
   const [showFilters, setShowFilters] = useState(false)
 
   useEffect(() => {
@@ -101,7 +100,6 @@ const MapaServicio = () => {
       <section className={styles.filtersSection}>
         <div className={styles.container}>
           
-          {/* NUEVO: Botón de Filtros */}
           <div className={styles.filterToggleContainer}>
             <button 
               className={styles.toggleFiltersBtn}
@@ -150,11 +148,12 @@ const MapaServicio = () => {
         <div className={styles.container}>
           <div className={styles.mapGrid}>
             <div className={styles.mapContainer}>
+              {/* IMPORTANTE: Se eliminó el style={{height: '100%'}} para que el CSS controle la altura en móvil */}
               <MapContainer 
                 center={[-16.4090, -71.5370]} 
                 zoom={12} 
                 scrollWheelZoom={false}
-                style={{ height: '100%', width: '100%' }}
+                className={styles.leafletMap} // Clase auxiliar si hiciera falta
               >
                 <TileLayer
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -170,10 +169,12 @@ const MapaServicio = () => {
                     }}
                   >
                     <Popup>
-                      <div>
+                      <div className={styles.popupContent}>
                         <h3>{location.name}</h3>
-                        <p style={{ fontWeight: 'bold', color: '#666' }}>{getTypeLabel(location.type)}</p>
-                        <p>{location.description}</p>
+                        <span className={styles.type} style={{ color: getTypeColor(location.type) }}>
+                          {getTypeLabel(location.type)}
+                        </span>
+                        <p>{location.description.substring(0, 100)}...</p>
                       </div>
                     </Popup>
                   </Marker>
@@ -183,11 +184,11 @@ const MapaServicio = () => {
                 <h4>Leyenda</h4>
                 <div className={styles.legendItem}>
                   <span className={styles.legendDot} style={{ backgroundColor: '#4CAF50' }}></span>
-                  Albergues para Niños
+                  Albergues Niños
                 </div>
                 <div className={styles.legendItem}>
                   <span className={styles.legendDot} style={{ backgroundColor: '#2196F3' }}></span>
-                  Albergues para Ancianos
+                  Albergues Ancianos
                 </div>
                 <div className={styles.legendItem}>
                   <span className={styles.legendDot} style={{ backgroundColor: '#FF9800' }}></span>
@@ -220,7 +221,6 @@ const MapaServicio = () => {
                     <div className={styles.infoItem}>
                       <span className={styles.icon}>👥</span>
                       <span>
-                        {/* CAMBIO: Solo ocupación actual */}
                         <strong>Ocupación Actual:</strong> {location.current} personas
                       </span>
                     </div>
@@ -241,8 +241,6 @@ const MapaServicio = () => {
                       <span>{location.contact.email}</span>
                     </div>
                   </div>
-
-                  {}
                 </div>
               ))}
             </div>
